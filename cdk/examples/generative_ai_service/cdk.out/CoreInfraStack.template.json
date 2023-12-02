@@ -1,0 +1,847 @@
+{
+ "Resources": {
+  "CoreInfrastructureConstructEcsVpcC95F565C": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-blueprint-infra-vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/Resource"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPublicSubnet1Subnet4D3E05C8": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+    },
+    "AvailabilityZone": "us-west-2a",
+    "CidrBlock": "10.0.0.0/19",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/Subnet"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPublicSubnet1RouteTable8B658892": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/RouteTable"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPublicSubnet1RouteTableAssociation1D77BECE": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet1RouteTable8B658892"
+    },
+    "SubnetId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet1Subnet4D3E05C8"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/RouteTableAssociation"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPublicSubnet1DefaultRouteCAE6BA3F": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet1RouteTable8B658892"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcIGW4F1B89AA"
+    }
+   },
+   "DependsOn": [
+    "CoreInfrastructureConstructEcsVpcVPCGWC407A86C"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/DefaultRoute"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPublicSubnet1EIP335B50B5": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/EIP"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPublicSubnet1NATGateway5E185F5F": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "SubnetId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet1Subnet4D3E05C8"
+    },
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "CoreInfrastructureConstructEcsVpcPublicSubnet1EIP335B50B5",
+      "AllocationId"
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1"
+     }
+    ]
+   },
+   "DependsOn": [
+    "CoreInfrastructureConstructEcsVpcPublicSubnet1DefaultRouteCAE6BA3F",
+    "CoreInfrastructureConstructEcsVpcPublicSubnet1RouteTableAssociation1D77BECE"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/NATGateway"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPublicSubnet2Subnet1D2A6326": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+    },
+    "AvailabilityZone": "us-west-2b",
+    "CidrBlock": "10.0.32.0/19",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet2/Subnet"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPublicSubnet2RouteTable8C168FD1": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet2/RouteTable"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPublicSubnet2RouteTableAssociation1E353BC7": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet2RouteTable8C168FD1"
+    },
+    "SubnetId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet2Subnet1D2A6326"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet2/RouteTableAssociation"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPublicSubnet2DefaultRoute54FB6B0F": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet2RouteTable8C168FD1"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcIGW4F1B89AA"
+    }
+   },
+   "DependsOn": [
+    "CoreInfrastructureConstructEcsVpcVPCGWC407A86C"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet2/DefaultRoute"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPublicSubnet3Subnet6161C329": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+    },
+    "AvailabilityZone": "us-west-2c",
+    "CidrBlock": "10.0.64.0/19",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet3/Subnet"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPublicSubnet3RouteTable9EA065DC": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet3/RouteTable"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPublicSubnet3RouteTableAssociation3C800690": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet3RouteTable9EA065DC"
+    },
+    "SubnetId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet3Subnet6161C329"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet3/RouteTableAssociation"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPublicSubnet3DefaultRouteD24E8DBA": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet3RouteTable9EA065DC"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcIGW4F1B89AA"
+    }
+   },
+   "DependsOn": [
+    "CoreInfrastructureConstructEcsVpcVPCGWC407A86C"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet3/DefaultRoute"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPrivateSubnet1Subnet1EE27350": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+    },
+    "AvailabilityZone": "us-west-2a",
+    "CidrBlock": "10.0.96.0/19",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet1/Subnet"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPrivateSubnet1RouteTable647415B4": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet1/RouteTable"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPrivateSubnet1RouteTableAssociation1AE75637": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet1RouteTable647415B4"
+    },
+    "SubnetId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet1Subnet1EE27350"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet1/RouteTableAssociation"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPrivateSubnet1DefaultRouteB6F88C52": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet1RouteTable647415B4"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet1NATGateway5E185F5F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet1/DefaultRoute"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPrivateSubnet2SubnetF4514B14": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+    },
+    "AvailabilityZone": "us-west-2b",
+    "CidrBlock": "10.0.128.0/19",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet2/Subnet"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPrivateSubnet2RouteTable983FCEB2": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet2/RouteTable"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPrivateSubnet2RouteTableAssociationEF82C221": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet2RouteTable983FCEB2"
+    },
+    "SubnetId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet2SubnetF4514B14"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet2/RouteTableAssociation"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPrivateSubnet2DefaultRouteD5B17F60": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet2RouteTable983FCEB2"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet1NATGateway5E185F5F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet2/DefaultRoute"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPrivateSubnet3Subnet05430C16": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+    },
+    "AvailabilityZone": "us-west-2c",
+    "CidrBlock": "10.0.160.0/19",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet3/Subnet"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPrivateSubnet3RouteTableD3D8807E": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet3/RouteTable"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPrivateSubnet3RouteTableAssociation1496DCE8": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet3RouteTableD3D8807E"
+    },
+    "SubnetId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet3Subnet05430C16"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet3/RouteTableAssociation"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcPrivateSubnet3DefaultRouteC8DCB92E": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet3RouteTableD3D8807E"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet1NATGateway5E185F5F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet3/DefaultRoute"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcIGW4F1B89AA": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-blueprint-infra-vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/IGW"
+   }
+  },
+  "CoreInfrastructureConstructEcsVpcVPCGWC407A86C": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "VpcId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+    },
+    "InternetGatewayId": {
+     "Ref": "CoreInfrastructureConstructEcsVpcIGW4F1B89AA"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/VPCGW"
+   }
+  },
+  "CoreInfrastructureConstructCloudWatchLogGroupF001FF94": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/aws/ecs/ecs-blueprint-infra",
+    "RetentionInDays": 7
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/CloudWatchLogGroup/Resource"
+   }
+  },
+  "CoreInfrastructureConstructEcsCluster53659F5A": {
+   "Type": "AWS::ECS::Cluster",
+   "Properties": {
+    "ClusterName": "ecs-blueprint-infra",
+    "ClusterSettings": [
+     {
+      "Name": "containerInsights",
+      "Value": "enabled"
+     }
+    ],
+    "Configuration": {
+     "ExecuteCommandConfiguration": {
+      "LogConfiguration": {
+       "CloudWatchLogGroupName": {
+        "Ref": "CoreInfrastructureConstructCloudWatchLogGroupF001FF94"
+       }
+      },
+      "Logging": "OVERRIDE"
+     }
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/EcsCluster/Resource"
+   }
+  },
+  "CoreInfrastructureConstructdefaultnamespaceCE89263E": {
+   "Type": "AWS::ServiceDiscovery::PrivateDnsNamespace",
+   "Properties": {
+    "Name": "default.ecs-blueprint-infra.local",
+    "Vpc": {
+     "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/default-namespace/Resource"
+   }
+  },
+  "CoreInfrastructureConstructECSTaskExecutionRoleD30C7A1D": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CoreInfrastructureConstruct/ECSTaskExecutionRole/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/22QwU7DMBBEv6V3x5TCAY5VQFUlVKIU9Yocd2mXOnZkr1NFlv8dm6TkwmnGb8ersVf86ZEvF+LqCnm8FAobHvYk5IUl9BlArng4dJKVX/pQlazyjUK5940Gymx2tfEEH6JRMPOZrZ0zEgWh0X/hbF63VZadoI0guIqBVRb7ZOfFW01gk78FxibTaU2p67kFTZEpc3I8vJnTxhrf5dzNRwYyjUrlXdqVJ5ONzIHtUcIRnTQ92IGHqcCLdjvRguuE/G36D44MRctDbcY3Z42R1eCMt+Old0+dH79nopFVA52Nvnvg90v+vPh2iIX1mrAFXo/6AyhAJaeUAQAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "CoreInfraStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "vpcid": {
+   "Value": {
+    "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+   }
+  },
+  "publicsubnets": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "['",
+      {
+       "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet1Subnet4D3E05C8"
+      },
+      "', '",
+      {
+       "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet2Subnet1D2A6326"
+      },
+      "', '",
+      {
+       "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet3Subnet6161C329"
+      },
+      "']"
+     ]
+    ]
+   }
+  },
+  "privatesubnets": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "['",
+      {
+       "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet1Subnet1EE27350"
+      },
+      "', '",
+      {
+       "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet2SubnetF4514B14"
+      },
+      "', '",
+      {
+       "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet3Subnet05430C16"
+      },
+      "']"
+     ]
+    ]
+   }
+  },
+  "ecsclustername": {
+   "Value": {
+    "Ref": "CoreInfrastructureConstructEcsCluster53659F5A"
+   }
+  },
+  "ecsclusterid": {
+   "Value": {
+    "Fn::GetAtt": [
+     "CoreInfrastructureConstructEcsCluster53659F5A",
+     "Arn"
+    ]
+   }
+  },
+  "ecstaskexecutionrolename": {
+   "Value": {
+    "Ref": "CoreInfrastructureConstructECSTaskExecutionRoleD30C7A1D"
+   }
+  },
+  "ecstaskexecutionrolearn": {
+   "Value": {
+    "Fn::GetAtt": [
+     "CoreInfrastructureConstructECSTaskExecutionRoleD30C7A1D",
+     "Arn"
+    ]
+   }
+  },
+  "sdnamespaces": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "{'default.ecs-blueprint-infra.local': {'arn': '",
+      {
+       "Fn::GetAtt": [
+        "CoreInfrastructureConstructdefaultnamespaceCE89263E",
+        "Arn"
+       ]
+      },
+      "', 'id': '",
+      {
+       "Fn::GetAtt": [
+        "CoreInfrastructureConstructdefaultnamespaceCE89263E",
+        "Id"
+       ]
+      },
+      "'}}"
+     ]
+    ]
+   }
+  },
+  "ExportsOutputFnGetAttCoreInfrastructureConstructECSTaskExecutionRoleD30C7A1DArn438CCB87": {
+   "Value": {
+    "Fn::GetAtt": [
+     "CoreInfrastructureConstructECSTaskExecutionRoleD30C7A1D",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "CoreInfraStack:ExportsOutputFnGetAttCoreInfrastructureConstructECSTaskExecutionRoleD30C7A1DArn438CCB87"
+   }
+  },
+  "ExportsOutputRefCoreInfrastructureConstructEcsVpcPublicSubnet1Subnet4D3E05C885848C52": {
+   "Value": {
+    "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet1Subnet4D3E05C8"
+   },
+   "Export": {
+    "Name": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsVpcPublicSubnet1Subnet4D3E05C885848C52"
+   }
+  },
+  "ExportsOutputRefCoreInfrastructureConstructEcsVpcPublicSubnet2Subnet1D2A6326AA69043F": {
+   "Value": {
+    "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet2Subnet1D2A6326"
+   },
+   "Export": {
+    "Name": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsVpcPublicSubnet2Subnet1D2A6326AA69043F"
+   }
+  },
+  "ExportsOutputRefCoreInfrastructureConstructEcsVpcPublicSubnet3Subnet6161C3294036F562": {
+   "Value": {
+    "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet3Subnet6161C329"
+   },
+   "Export": {
+    "Name": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsVpcPublicSubnet3Subnet6161C3294036F562"
+   }
+  },
+  "ExportsOutputRefCoreInfrastructureConstructEcsVpcC95F565C0964BC04": {
+   "Value": {
+    "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+   },
+   "Export": {
+    "Name": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsVpcC95F565C0964BC04"
+   }
+  },
+  "ExportsOutputRefCoreInfrastructureConstructEcsCluster53659F5A7A776767": {
+   "Value": {
+    "Ref": "CoreInfrastructureConstructEcsCluster53659F5A"
+   },
+   "Export": {
+    "Name": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsCluster53659F5A7A776767"
+   }
+  },
+  "ExportsOutputRefCoreInfrastructureConstructEcsVpcPrivateSubnet1Subnet1EE273509701C99C": {
+   "Value": {
+    "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet1Subnet1EE27350"
+   },
+   "Export": {
+    "Name": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsVpcPrivateSubnet1Subnet1EE273509701C99C"
+   }
+  },
+  "ExportsOutputRefCoreInfrastructureConstructEcsVpcPrivateSubnet2SubnetF4514B146EC7CE47": {
+   "Value": {
+    "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet2SubnetF4514B14"
+   },
+   "Export": {
+    "Name": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsVpcPrivateSubnet2SubnetF4514B146EC7CE47"
+   }
+  },
+  "ExportsOutputRefCoreInfrastructureConstructEcsVpcPrivateSubnet3Subnet05430C16B7D03F92": {
+   "Value": {
+    "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet3Subnet05430C16"
+   },
+   "Export": {
+    "Name": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsVpcPrivateSubnet3Subnet05430C16B7D03F92"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

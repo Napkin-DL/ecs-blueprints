@@ -1,0 +1,3329 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "CoreInfraStack": {
+        "id": "CoreInfraStack",
+        "path": "CoreInfraStack",
+        "children": {
+          "CoreInfrastructureConstruct": {
+            "id": "CoreInfrastructureConstruct",
+            "path": "CoreInfraStack/CoreInfrastructureConstruct",
+            "children": {
+              "EcsVpc": {
+                "id": "EcsVpc",
+                "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::VPC",
+                      "aws:cdk:cloudformation:props": {
+                        "cidrBlock": "10.0.0.0/16",
+                        "enableDnsHostnames": true,
+                        "enableDnsSupport": true,
+                        "instanceTenancy": "default",
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "ecs-blueprint-infra-vpc"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnVPC",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "PublicSubnet1": {
+                    "id": "PublicSubnet1",
+                    "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1",
+                    "children": {
+                      "Subnet": {
+                        "id": "Subnet",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/Subnet",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+                            },
+                            "availabilityZone": "us-west-2a",
+                            "cidrBlock": "10.0.0.0/19",
+                            "mapPublicIpOnLaunch": true,
+                            "tags": [
+                              {
+                                "key": "aws-cdk:subnet-name",
+                                "value": "Public"
+                              },
+                              {
+                                "key": "aws-cdk:subnet-type",
+                                "value": "Public"
+                              },
+                              {
+                                "key": "Name",
+                                "value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "Acl": {
+                        "id": "Acl",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/Acl",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "RouteTable": {
+                        "id": "RouteTable",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/RouteTable",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+                            },
+                            "tags": [
+                              {
+                                "key": "Name",
+                                "value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "RouteTableAssociation": {
+                        "id": "RouteTableAssociation",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/RouteTableAssociation",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet1RouteTable8B658892"
+                            },
+                            "subnetId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet1Subnet4D3E05C8"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "DefaultRoute": {
+                        "id": "DefaultRoute",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/DefaultRoute",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet1RouteTable8B658892"
+                            },
+                            "destinationCidrBlock": "0.0.0.0/0",
+                            "gatewayId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcIGW4F1B89AA"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "EIP": {
+                        "id": "EIP",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/EIP",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+                          "aws:cdk:cloudformation:props": {
+                            "domain": "vpc",
+                            "tags": [
+                              {
+                                "key": "Name",
+                                "value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnEIP",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "NATGateway": {
+                        "id": "NATGateway",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/NATGateway",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
+                          "aws:cdk:cloudformation:props": {
+                            "subnetId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet1Subnet4D3E05C8"
+                            },
+                            "allocationId": {
+                              "Fn::GetAtt": [
+                                "CoreInfrastructureConstructEcsVpcPublicSubnet1EIP335B50B5",
+                                "AllocationId"
+                              ]
+                            },
+                            "tags": [
+                              {
+                                "key": "Name",
+                                "value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnNatGateway",
+                          "version": "2.84.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.PublicSubnet",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "PublicSubnet2": {
+                    "id": "PublicSubnet2",
+                    "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet2",
+                    "children": {
+                      "Subnet": {
+                        "id": "Subnet",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet2/Subnet",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+                            },
+                            "availabilityZone": "us-west-2b",
+                            "cidrBlock": "10.0.32.0/19",
+                            "mapPublicIpOnLaunch": true,
+                            "tags": [
+                              {
+                                "key": "aws-cdk:subnet-name",
+                                "value": "Public"
+                              },
+                              {
+                                "key": "aws-cdk:subnet-type",
+                                "value": "Public"
+                              },
+                              {
+                                "key": "Name",
+                                "value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet2"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "Acl": {
+                        "id": "Acl",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet2/Acl",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "RouteTable": {
+                        "id": "RouteTable",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet2/RouteTable",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+                            },
+                            "tags": [
+                              {
+                                "key": "Name",
+                                "value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet2"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "RouteTableAssociation": {
+                        "id": "RouteTableAssociation",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet2/RouteTableAssociation",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet2RouteTable8C168FD1"
+                            },
+                            "subnetId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet2Subnet1D2A6326"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "DefaultRoute": {
+                        "id": "DefaultRoute",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet2/DefaultRoute",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet2RouteTable8C168FD1"
+                            },
+                            "destinationCidrBlock": "0.0.0.0/0",
+                            "gatewayId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcIGW4F1B89AA"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                          "version": "2.84.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.PublicSubnet",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "PublicSubnet3": {
+                    "id": "PublicSubnet3",
+                    "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet3",
+                    "children": {
+                      "Subnet": {
+                        "id": "Subnet",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet3/Subnet",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+                            },
+                            "availabilityZone": "us-west-2c",
+                            "cidrBlock": "10.0.64.0/19",
+                            "mapPublicIpOnLaunch": true,
+                            "tags": [
+                              {
+                                "key": "aws-cdk:subnet-name",
+                                "value": "Public"
+                              },
+                              {
+                                "key": "aws-cdk:subnet-type",
+                                "value": "Public"
+                              },
+                              {
+                                "key": "Name",
+                                "value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet3"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "Acl": {
+                        "id": "Acl",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet3/Acl",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "RouteTable": {
+                        "id": "RouteTable",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet3/RouteTable",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+                            },
+                            "tags": [
+                              {
+                                "key": "Name",
+                                "value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet3"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "RouteTableAssociation": {
+                        "id": "RouteTableAssociation",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet3/RouteTableAssociation",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet3RouteTable9EA065DC"
+                            },
+                            "subnetId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet3Subnet6161C329"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "DefaultRoute": {
+                        "id": "DefaultRoute",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet3/DefaultRoute",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet3RouteTable9EA065DC"
+                            },
+                            "destinationCidrBlock": "0.0.0.0/0",
+                            "gatewayId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcIGW4F1B89AA"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                          "version": "2.84.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.PublicSubnet",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "PrivateSubnet1": {
+                    "id": "PrivateSubnet1",
+                    "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet1",
+                    "children": {
+                      "Subnet": {
+                        "id": "Subnet",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet1/Subnet",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+                            },
+                            "availabilityZone": "us-west-2a",
+                            "cidrBlock": "10.0.96.0/19",
+                            "mapPublicIpOnLaunch": false,
+                            "tags": [
+                              {
+                                "key": "aws-cdk:subnet-name",
+                                "value": "Private"
+                              },
+                              {
+                                "key": "aws-cdk:subnet-type",
+                                "value": "Private"
+                              },
+                              {
+                                "key": "Name",
+                                "value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet1"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "Acl": {
+                        "id": "Acl",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet1/Acl",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "RouteTable": {
+                        "id": "RouteTable",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet1/RouteTable",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+                            },
+                            "tags": [
+                              {
+                                "key": "Name",
+                                "value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet1"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "RouteTableAssociation": {
+                        "id": "RouteTableAssociation",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet1/RouteTableAssociation",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet1RouteTable647415B4"
+                            },
+                            "subnetId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet1Subnet1EE27350"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "DefaultRoute": {
+                        "id": "DefaultRoute",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet1/DefaultRoute",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet1RouteTable647415B4"
+                            },
+                            "destinationCidrBlock": "0.0.0.0/0",
+                            "natGatewayId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet1NATGateway5E185F5F"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                          "version": "2.84.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.PrivateSubnet",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "PrivateSubnet2": {
+                    "id": "PrivateSubnet2",
+                    "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet2",
+                    "children": {
+                      "Subnet": {
+                        "id": "Subnet",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet2/Subnet",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+                            },
+                            "availabilityZone": "us-west-2b",
+                            "cidrBlock": "10.0.128.0/19",
+                            "mapPublicIpOnLaunch": false,
+                            "tags": [
+                              {
+                                "key": "aws-cdk:subnet-name",
+                                "value": "Private"
+                              },
+                              {
+                                "key": "aws-cdk:subnet-type",
+                                "value": "Private"
+                              },
+                              {
+                                "key": "Name",
+                                "value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet2"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "Acl": {
+                        "id": "Acl",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet2/Acl",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "RouteTable": {
+                        "id": "RouteTable",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet2/RouteTable",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+                            },
+                            "tags": [
+                              {
+                                "key": "Name",
+                                "value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet2"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "RouteTableAssociation": {
+                        "id": "RouteTableAssociation",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet2/RouteTableAssociation",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet2RouteTable983FCEB2"
+                            },
+                            "subnetId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet2SubnetF4514B14"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "DefaultRoute": {
+                        "id": "DefaultRoute",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet2/DefaultRoute",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet2RouteTable983FCEB2"
+                            },
+                            "destinationCidrBlock": "0.0.0.0/0",
+                            "natGatewayId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet1NATGateway5E185F5F"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                          "version": "2.84.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.PrivateSubnet",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "PrivateSubnet3": {
+                    "id": "PrivateSubnet3",
+                    "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet3",
+                    "children": {
+                      "Subnet": {
+                        "id": "Subnet",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet3/Subnet",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+                            },
+                            "availabilityZone": "us-west-2c",
+                            "cidrBlock": "10.0.160.0/19",
+                            "mapPublicIpOnLaunch": false,
+                            "tags": [
+                              {
+                                "key": "aws-cdk:subnet-name",
+                                "value": "Private"
+                              },
+                              {
+                                "key": "aws-cdk:subnet-type",
+                                "value": "Private"
+                              },
+                              {
+                                "key": "Name",
+                                "value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet3"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "Acl": {
+                        "id": "Acl",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet3/Acl",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "RouteTable": {
+                        "id": "RouteTable",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet3/RouteTable",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                          "aws:cdk:cloudformation:props": {
+                            "vpcId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+                            },
+                            "tags": [
+                              {
+                                "key": "Name",
+                                "value": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet3"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "RouteTableAssociation": {
+                        "id": "RouteTableAssociation",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet3/RouteTableAssociation",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet3RouteTableD3D8807E"
+                            },
+                            "subnetId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet3Subnet05430C16"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "DefaultRoute": {
+                        "id": "DefaultRoute",
+                        "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet3/DefaultRoute",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                          "aws:cdk:cloudformation:props": {
+                            "routeTableId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPrivateSubnet3RouteTableD3D8807E"
+                            },
+                            "destinationCidrBlock": "0.0.0.0/0",
+                            "natGatewayId": {
+                              "Ref": "CoreInfrastructureConstructEcsVpcPublicSubnet1NATGateway5E185F5F"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                          "version": "2.84.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.PrivateSubnet",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "IGW": {
+                    "id": "IGW",
+                    "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/IGW",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::InternetGateway",
+                      "aws:cdk:cloudformation:props": {
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "ecs-blueprint-infra-vpc"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnInternetGateway",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "VPCGW": {
+                    "id": "VPCGW",
+                    "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/VPCGW",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::VPCGatewayAttachment",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+                        },
+                        "internetGatewayId": {
+                          "Ref": "CoreInfrastructureConstructEcsVpcIGW4F1B89AA"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnVPCGatewayAttachment",
+                      "version": "2.84.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.Vpc",
+                  "version": "2.84.0"
+                }
+              },
+              "CloudWatchLogGroup": {
+                "id": "CloudWatchLogGroup",
+                "path": "CoreInfraStack/CoreInfrastructureConstruct/CloudWatchLogGroup",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CoreInfraStack/CoreInfrastructureConstruct/CloudWatchLogGroup/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
+                      "aws:cdk:cloudformation:props": {
+                        "logGroupName": "/aws/ecs/ecs-blueprint-infra",
+                        "retentionInDays": 7
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_logs.CfnLogGroup",
+                      "version": "2.84.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_logs.LogGroup",
+                  "version": "2.84.0"
+                }
+              },
+              "EcsCluster": {
+                "id": "EcsCluster",
+                "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsCluster",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CoreInfraStack/CoreInfrastructureConstruct/EcsCluster/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ECS::Cluster",
+                      "aws:cdk:cloudformation:props": {
+                        "clusterName": "ecs-blueprint-infra",
+                        "clusterSettings": [
+                          {
+                            "name": "containerInsights",
+                            "value": "enabled"
+                          }
+                        ],
+                        "configuration": {
+                          "executeCommandConfiguration": {
+                            "logConfiguration": {
+                              "cloudWatchLogGroupName": {
+                                "Ref": "CoreInfrastructureConstructCloudWatchLogGroupF001FF94"
+                              }
+                            },
+                            "logging": "OVERRIDE"
+                          }
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecs.CfnCluster",
+                      "version": "2.84.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.Cluster",
+                  "version": "2.84.0"
+                }
+              },
+              "default-namespace": {
+                "id": "default-namespace",
+                "path": "CoreInfraStack/CoreInfrastructureConstruct/default-namespace",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CoreInfraStack/CoreInfrastructureConstruct/default-namespace/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ServiceDiscovery::PrivateDnsNamespace",
+                      "aws:cdk:cloudformation:props": {
+                        "name": "default.ecs-blueprint-infra.local",
+                        "vpc": {
+                          "Ref": "CoreInfrastructureConstructEcsVpcC95F565C"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_servicediscovery.CfnPrivateDnsNamespace",
+                      "version": "2.84.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_servicediscovery.PrivateDnsNamespace",
+                  "version": "2.84.0"
+                }
+              },
+              "ECSTaskExecutionRole": {
+                "id": "ECSTaskExecutionRole",
+                "path": "CoreInfraStack/CoreInfrastructureConstruct/ECSTaskExecutionRole",
+                "children": {
+                  "ImportECSTaskExecutionRole": {
+                    "id": "ImportECSTaskExecutionRole",
+                    "path": "CoreInfraStack/CoreInfrastructureConstruct/ECSTaskExecutionRole/ImportECSTaskExecutionRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CoreInfraStack/CoreInfrastructureConstruct/ECSTaskExecutionRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "ecs-tasks.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.84.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.84.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.3.0"
+            }
+          },
+          "vpc_id": {
+            "id": "vpc_id",
+            "path": "CoreInfraStack/vpc_id",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.84.0"
+            }
+          },
+          "public_subnets": {
+            "id": "public_subnets",
+            "path": "CoreInfraStack/public_subnets",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.84.0"
+            }
+          },
+          "private_subnets": {
+            "id": "private_subnets",
+            "path": "CoreInfraStack/private_subnets",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.84.0"
+            }
+          },
+          "ecs_cluster_name": {
+            "id": "ecs_cluster_name",
+            "path": "CoreInfraStack/ecs_cluster_name",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.84.0"
+            }
+          },
+          "ecs_cluster_id": {
+            "id": "ecs_cluster_id",
+            "path": "CoreInfraStack/ecs_cluster_id",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.84.0"
+            }
+          },
+          "ecs_task_execution_role_name": {
+            "id": "ecs_task_execution_role_name",
+            "path": "CoreInfraStack/ecs_task_execution_role_name",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.84.0"
+            }
+          },
+          "ecs_task_execution_role_arn": {
+            "id": "ecs_task_execution_role_arn",
+            "path": "CoreInfraStack/ecs_task_execution_role_arn",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.84.0"
+            }
+          },
+          "sd_namespaces": {
+            "id": "sd_namespaces",
+            "path": "CoreInfraStack/sd_namespaces",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.84.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "CoreInfraStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "CoreInfraStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.84.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.3.0"
+            }
+          },
+          "Exports": {
+            "id": "Exports",
+            "path": "CoreInfraStack/Exports",
+            "children": {
+              "Output{\"Fn::GetAtt\":[\"CoreInfrastructureConstructECSTaskExecutionRoleD30C7A1D\",\"Arn\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"CoreInfrastructureConstructECSTaskExecutionRoleD30C7A1D\",\"Arn\"]}",
+                "path": "CoreInfraStack/Exports/Output{\"Fn::GetAtt\":[\"CoreInfrastructureConstructECSTaskExecutionRoleD30C7A1D\",\"Arn\"]}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.84.0"
+                }
+              },
+              "Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPublicSubnet1Subnet4D3E05C8\"}": {
+                "id": "Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPublicSubnet1Subnet4D3E05C8\"}",
+                "path": "CoreInfraStack/Exports/Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPublicSubnet1Subnet4D3E05C8\"}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.84.0"
+                }
+              },
+              "Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPublicSubnet2Subnet1D2A6326\"}": {
+                "id": "Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPublicSubnet2Subnet1D2A6326\"}",
+                "path": "CoreInfraStack/Exports/Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPublicSubnet2Subnet1D2A6326\"}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.84.0"
+                }
+              },
+              "Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPublicSubnet3Subnet6161C329\"}": {
+                "id": "Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPublicSubnet3Subnet6161C329\"}",
+                "path": "CoreInfraStack/Exports/Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPublicSubnet3Subnet6161C329\"}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.84.0"
+                }
+              },
+              "Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcC95F565C\"}": {
+                "id": "Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcC95F565C\"}",
+                "path": "CoreInfraStack/Exports/Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcC95F565C\"}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.84.0"
+                }
+              },
+              "Output{\"Ref\":\"CoreInfrastructureConstructEcsCluster53659F5A\"}": {
+                "id": "Output{\"Ref\":\"CoreInfrastructureConstructEcsCluster53659F5A\"}",
+                "path": "CoreInfraStack/Exports/Output{\"Ref\":\"CoreInfrastructureConstructEcsCluster53659F5A\"}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.84.0"
+                }
+              },
+              "Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPrivateSubnet1Subnet1EE27350\"}": {
+                "id": "Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPrivateSubnet1Subnet1EE27350\"}",
+                "path": "CoreInfraStack/Exports/Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPrivateSubnet1Subnet1EE27350\"}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.84.0"
+                }
+              },
+              "Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPrivateSubnet2SubnetF4514B14\"}": {
+                "id": "Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPrivateSubnet2SubnetF4514B14\"}",
+                "path": "CoreInfraStack/Exports/Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPrivateSubnet2SubnetF4514B14\"}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.84.0"
+                }
+              },
+              "Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPrivateSubnet3Subnet05430C16\"}": {
+                "id": "Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPrivateSubnet3Subnet05430C16\"}",
+                "path": "CoreInfraStack/Exports/Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPrivateSubnet3Subnet05430C16\"}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.84.0"
+                }
+              },
+              "Output{\"Fn::GetAtt\":[\"CoreInfrastructureConstructdefaultnamespaceCE89263E\",\"Id\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"CoreInfrastructureConstructdefaultnamespaceCE89263E\",\"Id\"]}",
+                "path": "CoreInfraStack/Exports/Output{\"Fn::GetAtt\":[\"CoreInfrastructureConstructdefaultnamespaceCE89263E\",\"Id\"]}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.84.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.3.0"
+            }
+          },
+          "BootstrapVersion": {
+            "id": "BootstrapVersion",
+            "path": "CoreInfraStack/BootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.84.0"
+            }
+          },
+          "CheckBootstrapVersion": {
+            "id": "CheckBootstrapVersion",
+            "path": "CoreInfraStack/CheckBootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnRule",
+              "version": "2.84.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.84.0"
+        }
+      },
+      "CICDService": {
+        "id": "CICDService",
+        "path": "CICDService",
+        "children": {
+          "CICDServiceLogGroup": {
+            "id": "CICDServiceLogGroup",
+            "path": "CICDService/CICDServiceLogGroup",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "CICDService/CICDServiceLogGroup/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "retentionInDays": 7
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_logs.CfnLogGroup",
+                  "version": "2.84.0"
+                }
+              },
+              "Policy": {
+                "id": "Policy",
+                "path": "CICDService/CICDServiceLogGroup/Policy",
+                "children": {
+                  "ResourcePolicy": {
+                    "id": "ResourcePolicy",
+                    "path": "CICDService/CICDServiceLogGroup/Policy/ResourcePolicy",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Logs::ResourcePolicy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "{\"Statement\":[{\"Action\":[\"logs:CreateLogStream\",\"logs:PutLogEvents\"],\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"",
+                              {
+                                "Fn::Select": [
+                                  4,
+                                  {
+                                    "Fn::Split": [
+                                      ":",
+                                      {
+                                        "Fn::ImportValue": "CoreInfraStack:ExportsOutputFnGetAttCoreInfrastructureConstructECSTaskExecutionRoleD30C7A1DArn438CCB87"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "\"},\"Resource\":\"",
+                              {
+                                "Fn::GetAtt": [
+                                  "CICDServiceLogGroup1938FC4C",
+                                  "Arn"
+                                ]
+                              },
+                              "\"}],\"Version\":\"2012-10-17\"}"
+                            ]
+                          ]
+                        },
+                        "policyName": "CICDServiceCICDServiceLogGroupPolicy30E72883"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_logs.CfnResourcePolicy",
+                      "version": "2.84.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_logs.ResourcePolicy",
+                  "version": "2.84.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_logs.LogGroup",
+              "version": "2.84.0"
+            }
+          },
+          "EcsTaskRoleFromArn": {
+            "id": "EcsTaskRoleFromArn",
+            "path": "CICDService/EcsTaskRoleFromArn",
+            "children": {
+              "Policy": {
+                "id": "Policy",
+                "path": "CICDService/EcsTaskRoleFromArn/Policy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CICDService/EcsTaskRoleFromArn/Policy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": [
+                                "logs:CreateLogStream",
+                                "logs:PutLogEvents"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": {
+                                "Fn::GetAtt": [
+                                  "CICDServiceLogGroup1938FC4C",
+                                  "Arn"
+                                ]
+                              }
+                            },
+                            {
+                              "Action": [
+                                "ecr:BatchCheckLayerAvailability",
+                                "ecr:GetDownloadUrlForLayer",
+                                "ecr:BatchGetImage"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": {
+                                "Fn::GetAtt": [
+                                  "CodeStarCICDConstructEcrRepository5B240103",
+                                  "Arn"
+                                ]
+                              }
+                            },
+                            {
+                              "Action": "ecr:GetAuthorizationToken",
+                              "Effect": "Allow",
+                              "Resource": "*"
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "policyName": "EcsTaskRoleFromArnPolicy3337E7E7",
+                        "roles": [
+                          {
+                            "Fn::Select": [
+                              1,
+                              {
+                                "Fn::Split": [
+                                  "/",
+                                  {
+                                    "Fn::Select": [
+                                      5,
+                                      {
+                                        "Fn::Split": [
+                                          ":",
+                                          {
+                                            "Fn::ImportValue": "CoreInfraStack:ExportsOutputFnGetAttCoreInfrastructureConstructECSTaskExecutionRoleD30C7A1DArn438CCB87"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                      "version": "2.84.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                  "version": "2.84.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.84.0"
+            }
+          },
+          "EcsClusterLookup": {
+            "id": "EcsClusterLookup",
+            "path": "CICDService/EcsClusterLookup",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.84.0"
+            }
+          },
+          "CICDFargateLBService": {
+            "id": "CICDFargateLBService",
+            "path": "CICDService/CICDFargateLBService",
+            "children": {
+              "LB": {
+                "id": "LB",
+                "path": "CICDService/CICDFargateLBService/LB",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CICDService/CICDFargateLBService/LB/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+                      "aws:cdk:cloudformation:props": {
+                        "loadBalancerAttributes": [
+                          {
+                            "key": "deletion_protection.enabled",
+                            "value": "false"
+                          }
+                        ],
+                        "scheme": "internet-facing",
+                        "securityGroups": [
+                          {
+                            "Fn::GetAtt": [
+                              "CICDFargateLBServiceLBSecurityGroup61E36252",
+                              "GroupId"
+                            ]
+                          }
+                        ],
+                        "subnets": [
+                          {
+                            "Fn::ImportValue": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsVpcPublicSubnet1Subnet4D3E05C885848C52"
+                          },
+                          {
+                            "Fn::ImportValue": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsVpcPublicSubnet2Subnet1D2A6326AA69043F"
+                          },
+                          {
+                            "Fn::ImportValue": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsVpcPublicSubnet3Subnet6161C3294036F562"
+                          }
+                        ],
+                        "type": "application"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnLoadBalancer",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "SecurityGroup": {
+                    "id": "SecurityGroup",
+                    "path": "CICDService/CICDFargateLBService/LB/SecurityGroup",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "CICDService/CICDFargateLBService/LB/SecurityGroup/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                          "aws:cdk:cloudformation:props": {
+                            "groupDescription": "Automatically created Security Group for ELB CICDServiceCICDFargateLBServiceLB3895C7BF",
+                            "securityGroupIngress": [
+                              {
+                                "cidrIp": "0.0.0.0/0",
+                                "ipProtocol": "tcp",
+                                "fromPort": 80,
+                                "toPort": 80,
+                                "description": "Allow from anyone on port 80"
+                              }
+                            ],
+                            "vpcId": {
+                              "Fn::ImportValue": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsVpcC95F565C0964BC04"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "to CICDServiceCICDFargateLBServiceSecurityGroupCC010AC9:80": {
+                        "id": "to CICDServiceCICDFargateLBServiceSecurityGroupCC010AC9:80",
+                        "path": "CICDService/CICDFargateLBService/LB/SecurityGroup/to CICDServiceCICDFargateLBServiceSecurityGroupCC010AC9:80",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupEgress",
+                          "aws:cdk:cloudformation:props": {
+                            "groupId": {
+                              "Fn::GetAtt": [
+                                "CICDFargateLBServiceLBSecurityGroup61E36252",
+                                "GroupId"
+                              ]
+                            },
+                            "ipProtocol": "tcp",
+                            "description": "Load balancer to target",
+                            "destinationSecurityGroupId": {
+                              "Fn::GetAtt": [
+                                "CICDFargateLBServiceSecurityGroup1795261C",
+                                "GroupId"
+                              ]
+                            },
+                            "fromPort": 80,
+                            "toPort": 80
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupEgress",
+                          "version": "2.84.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "PublicListener": {
+                    "id": "PublicListener",
+                    "path": "CICDService/CICDFargateLBService/LB/PublicListener",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "CICDService/CICDFargateLBService/LB/PublicListener/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
+                          "aws:cdk:cloudformation:props": {
+                            "defaultActions": [
+                              {
+                                "type": "forward",
+                                "targetGroupArn": {
+                                  "Ref": "CICDFargateLBServiceLBPublicListenerECSGroup8D33F6F7"
+                                }
+                              }
+                            ],
+                            "loadBalancerArn": {
+                              "Ref": "CICDFargateLBServiceLB58C066A2"
+                            },
+                            "port": 80,
+                            "protocol": "HTTP"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnListener",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "ECSGroup": {
+                        "id": "ECSGroup",
+                        "path": "CICDService/CICDFargateLBService/LB/PublicListener/ECSGroup",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "CICDService/CICDFargateLBService/LB/PublicListener/ECSGroup/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+                              "aws:cdk:cloudformation:props": {
+                                "port": 80,
+                                "protocol": "HTTP",
+                                "targetGroupAttributes": [
+                                  {
+                                    "key": "stickiness.enabled",
+                                    "value": "false"
+                                  }
+                                ],
+                                "targetType": "ip",
+                                "vpcId": {
+                                  "Fn::ImportValue": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsVpcC95F565C0964BC04"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnTargetGroup",
+                              "version": "2.84.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationTargetGroup",
+                          "version": "2.84.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationListener",
+                      "version": "2.84.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationLoadBalancer",
+                  "version": "2.84.0"
+                }
+              },
+              "LoadBalancerDNS": {
+                "id": "LoadBalancerDNS",
+                "path": "CICDService/CICDFargateLBService/LoadBalancerDNS",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.84.0"
+                }
+              },
+              "ServiceURL": {
+                "id": "ServiceURL",
+                "path": "CICDService/CICDFargateLBService/ServiceURL",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.84.0"
+                }
+              },
+              "TaskDef": {
+                "id": "TaskDef",
+                "path": "CICDService/CICDFargateLBService/TaskDef",
+                "children": {
+                  "TaskRole": {
+                    "id": "TaskRole",
+                    "path": "CICDService/CICDFargateLBService/TaskDef/TaskRole",
+                    "children": {
+                      "ImportTaskRole": {
+                        "id": "ImportTaskRole",
+                        "path": "CICDService/CICDFargateLBService/TaskDef/TaskRole/ImportTaskRole",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "CICDService/CICDFargateLBService/TaskDef/TaskRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "ecs-tasks.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "DefaultPolicy": {
+                        "id": "DefaultPolicy",
+                        "path": "CICDService/CICDFargateLBService/TaskDef/TaskRole/DefaultPolicy",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "CICDService/CICDFargateLBService/TaskDef/TaskRole/DefaultPolicy/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                              "aws:cdk:cloudformation:props": {
+                                "policyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": [
+                                        "ssmmessages:CreateControlChannel",
+                                        "ssmmessages:CreateDataChannel",
+                                        "ssmmessages:OpenControlChannel",
+                                        "ssmmessages:OpenDataChannel"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": "*"
+                                    },
+                                    {
+                                      "Action": "logs:DescribeLogGroups",
+                                      "Effect": "Allow",
+                                      "Resource": "*"
+                                    },
+                                    {
+                                      "Action": [
+                                        "logs:CreateLogStream",
+                                        "logs:DescribeLogStreams",
+                                        "logs:PutLogEvents"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": "*"
+                                    },
+                                    {
+                                      "Action": "ssm:GetParameter",
+                                      "Effect": "Allow",
+                                      "Resource": "*"
+                                    },
+                                    {
+                                      "Action": "sagemaker:InvokeEndpoint",
+                                      "Effect": "Allow",
+                                      "Resource": "*"
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "policyName": "CICDFargateLBServiceTaskDefTaskRoleDefaultPolicy0CDEA7B6",
+                                "roles": [
+                                  {
+                                    "Ref": "CICDFargateLBServiceTaskDefTaskRoleB7A72379"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                              "version": "2.84.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Policy",
+                          "version": "2.84.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CICDService/CICDFargateLBService/TaskDef/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
+                      "aws:cdk:cloudformation:props": {
+                        "containerDefinitions": [
+                          {
+                            "essential": true,
+                            "image": "nginx",
+                            "name": "web-container",
+                            "portMappings": [
+                              {
+                                "containerPort": 80,
+                                "protocol": "tcp"
+                              }
+                            ],
+                            "logConfiguration": {
+                              "logDriver": "awslogs",
+                              "options": {
+                                "awslogs-group": {
+                                  "Ref": "CICDServiceLogGroup1938FC4C"
+                                },
+                                "awslogs-stream-prefix": "ecs",
+                                "awslogs-region": "us-west-2"
+                              }
+                            }
+                          }
+                        ],
+                        "cpu": "2048",
+                        "executionRoleArn": {
+                          "Fn::ImportValue": "CoreInfraStack:ExportsOutputFnGetAttCoreInfrastructureConstructECSTaskExecutionRoleD30C7A1DArn438CCB87"
+                        },
+                        "family": "CICDServiceCICDFargateLBServiceTaskDef4E094031",
+                        "memory": "4096",
+                        "networkMode": "awsvpc",
+                        "requiresCompatibilities": [
+                          "FARGATE"
+                        ],
+                        "taskRoleArn": {
+                          "Fn::GetAtt": [
+                            "CICDFargateLBServiceTaskDefTaskRoleB7A72379",
+                            "Arn"
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecs.CfnTaskDefinition",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "web-container": {
+                    "id": "web-container",
+                    "path": "CICDService/CICDFargateLBService/TaskDef/web-container",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
+                      "version": "2.84.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.FargateTaskDefinition",
+                  "version": "2.84.0"
+                }
+              },
+              "Service": {
+                "id": "Service",
+                "path": "CICDService/CICDFargateLBService/Service",
+                "children": {
+                  "Service": {
+                    "id": "Service",
+                    "path": "CICDService/CICDFargateLBService/Service/Service",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ECS::Service",
+                      "aws:cdk:cloudformation:props": {
+                        "cluster": {
+                          "Fn::ImportValue": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsCluster53659F5A7A776767"
+                        },
+                        "deploymentConfiguration": {
+                          "maximumPercent": 200,
+                          "minimumHealthyPercent": 50
+                        },
+                        "desiredCount": 3,
+                        "enableEcsManagedTags": true,
+                        "enableExecuteCommand": true,
+                        "healthCheckGracePeriodSeconds": 60,
+                        "launchType": "FARGATE",
+                        "loadBalancers": [
+                          {
+                            "targetGroupArn": {
+                              "Ref": "CICDFargateLBServiceLBPublicListenerECSGroup8D33F6F7"
+                            },
+                            "containerName": "web-container",
+                            "containerPort": 80
+                          }
+                        ],
+                        "networkConfiguration": {
+                          "awsvpcConfiguration": {
+                            "assignPublicIp": "DISABLED",
+                            "subnets": [
+                              {
+                                "Fn::ImportValue": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsVpcPrivateSubnet1Subnet1EE273509701C99C"
+                              },
+                              {
+                                "Fn::ImportValue": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsVpcPrivateSubnet2SubnetF4514B146EC7CE47"
+                              },
+                              {
+                                "Fn::ImportValue": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsVpcPrivateSubnet3Subnet05430C16B7D03F92"
+                              }
+                            ],
+                            "securityGroups": [
+                              {
+                                "Fn::GetAtt": [
+                                  "CICDFargateLBServiceSecurityGroup1795261C",
+                                  "GroupId"
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "serviceName": "gen-ai-web-service-new",
+                        "serviceRegistries": [
+                          {
+                            "registryArn": {
+                              "Fn::GetAtt": [
+                                "CICDFargateLBServiceCloudmapService7B112704",
+                                "Arn"
+                              ]
+                            }
+                          }
+                        ],
+                        "taskDefinition": {
+                          "Ref": "CICDFargateLBServiceTaskDefA3F2E8E5"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecs.CfnService",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "CloudmapService": {
+                    "id": "CloudmapService",
+                    "path": "CICDService/CICDFargateLBService/Service/CloudmapService",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "CICDService/CICDFargateLBService/Service/CloudmapService/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ServiceDiscovery::Service",
+                          "aws:cdk:cloudformation:props": {
+                            "dnsConfig": {
+                              "dnsRecords": [
+                                {
+                                  "type": "A",
+                                  "ttl": 60
+                                }
+                              ],
+                              "namespaceId": {
+                                "Fn::ImportValue": "CoreInfraStack:ExportsOutputFnGetAttCoreInfrastructureConstructdefaultnamespaceCE89263EId03566475"
+                              },
+                              "routingPolicy": "MULTIVALUE"
+                            },
+                            "healthCheckCustomConfig": {
+                              "failureThreshold": 1
+                            },
+                            "name": "gen-ai-web-service-new",
+                            "namespaceId": {
+                              "Fn::ImportValue": "CoreInfraStack:ExportsOutputFnGetAttCoreInfrastructureConstructdefaultnamespaceCE89263EId03566475"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_servicediscovery.CfnService",
+                          "version": "2.84.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_servicediscovery.Service",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "SecurityGroup": {
+                    "id": "SecurityGroup",
+                    "path": "CICDService/CICDFargateLBService/Service/SecurityGroup",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "CICDService/CICDFargateLBService/Service/SecurityGroup/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                          "aws:cdk:cloudformation:props": {
+                            "groupDescription": "CICDService/CICDFargateLBService/Service/SecurityGroup",
+                            "securityGroupEgress": [
+                              {
+                                "cidrIp": "0.0.0.0/0",
+                                "description": "Allow all outbound traffic by default",
+                                "ipProtocol": "-1"
+                              }
+                            ],
+                            "vpcId": {
+                              "Fn::ImportValue": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsVpcC95F565C0964BC04"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                          "version": "2.84.0"
+                        }
+                      },
+                      "from CICDServiceCICDFargateLBServiceLBSecurityGroupD131E259:80": {
+                        "id": "from CICDServiceCICDFargateLBServiceLBSecurityGroupD131E259:80",
+                        "path": "CICDService/CICDFargateLBService/Service/SecurityGroup/from CICDServiceCICDFargateLBServiceLBSecurityGroupD131E259:80",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                          "aws:cdk:cloudformation:props": {
+                            "ipProtocol": "tcp",
+                            "description": "Load balancer to target",
+                            "fromPort": 80,
+                            "groupId": {
+                              "Fn::GetAtt": [
+                                "CICDFargateLBServiceSecurityGroup1795261C",
+                                "GroupId"
+                              ]
+                            },
+                            "sourceSecurityGroupId": {
+                              "Fn::GetAtt": [
+                                "CICDFargateLBServiceLBSecurityGroup61E36252",
+                                "GroupId"
+                              ]
+                            },
+                            "toPort": 80
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                          "version": "2.84.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "ScalingRole": {
+                    "id": "ScalingRole",
+                    "path": "CICDService/CICDFargateLBService/Service/ScalingRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "TaskCount": {
+                    "id": "TaskCount",
+                    "path": "CICDService/CICDFargateLBService/Service/TaskCount",
+                    "children": {
+                      "Target": {
+                        "id": "Target",
+                        "path": "CICDService/CICDFargateLBService/Service/TaskCount/Target",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "CICDService/CICDFargateLBService/Service/TaskCount/Target/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApplicationAutoScaling::ScalableTarget",
+                              "aws:cdk:cloudformation:props": {
+                                "maxCapacity": 10,
+                                "minCapacity": 3,
+                                "resourceId": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "service/",
+                                      {
+                                        "Fn::ImportValue": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsCluster53659F5A7A776767"
+                                      },
+                                      "/",
+                                      {
+                                        "Fn::GetAtt": [
+                                          "CICDFargateLBServiceD3CDF0BD",
+                                          "Name"
+                                        ]
+                                      }
+                                    ]
+                                  ]
+                                },
+                                "roleArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":iam::322537213286:role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService"
+                                    ]
+                                  ]
+                                },
+                                "scalableDimension": "ecs:service:DesiredCount",
+                                "serviceNamespace": "ecs"
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_applicationautoscaling.CfnScalableTarget",
+                              "version": "2.84.0"
+                            }
+                          },
+                          "CpuScaling": {
+                            "id": "CpuScaling",
+                            "path": "CICDService/CICDFargateLBService/Service/TaskCount/Target/CpuScaling",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "CICDService/CICDFargateLBService/Service/TaskCount/Target/CpuScaling/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+                                  "aws:cdk:cloudformation:props": {
+                                    "policyName": "CICDServiceCICDFargateLBServiceTaskCountTargetCpuScaling7BDC8FC3",
+                                    "policyType": "TargetTrackingScaling",
+                                    "scalingTargetId": {
+                                      "Ref": "CICDFargateLBServiceTaskCountTargetD4F477D7"
+                                    },
+                                    "targetTrackingScalingPolicyConfiguration": {
+                                      "predefinedMetricSpecification": {
+                                        "predefinedMetricType": "ECSServiceAverageCPUUtilization"
+                                      },
+                                      "targetValue": 50
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_applicationautoscaling.CfnScalingPolicy",
+                                  "version": "2.84.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_applicationautoscaling.TargetTrackingScalingPolicy",
+                              "version": "2.84.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_applicationautoscaling.ScalableTarget",
+                          "version": "2.84.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecs.ScalableTaskCount",
+                      "version": "2.84.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.FargateService",
+                  "version": "2.84.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ecs_patterns.ApplicationLoadBalancedFargateService",
+              "version": "2.84.0"
+            }
+          },
+          "CodeStarCICDConstruct": {
+            "id": "CodeStarCICDConstruct",
+            "path": "CICDService/CodeStarCICDConstruct",
+            "children": {
+              "codeBuildServiceRole": {
+                "id": "codeBuildServiceRole",
+                "path": "CICDService/CodeStarCICDConstruct/codeBuildServiceRole",
+                "children": {
+                  "ImportcodeBuildServiceRole": {
+                    "id": "ImportcodeBuildServiceRole",
+                    "path": "CICDService/CodeStarCICDConstruct/codeBuildServiceRole/ImportcodeBuildServiceRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CICDService/CodeStarCICDConstruct/codeBuildServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "codebuild.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "CICDService/CodeStarCICDConstruct/codeBuildServiceRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "CICDService/CodeStarCICDConstruct/codeBuildServiceRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "ecr:GetAuthorizationToken",
+                                    "ecr:BatchCheckLayerAvailability",
+                                    "ecr:InitiateLayerUpload",
+                                    "ecr:UploadLayerPart",
+                                    "ecr:CompleteLayerUpload",
+                                    "ecr:PutImage",
+                                    "s3:Get*",
+                                    "s3:List*",
+                                    "s3:PutObject",
+                                    "secretsmanager:GetSecretValue"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                },
+                                {
+                                  "Action": [
+                                    "ecr:BatchCheckLayerAvailability",
+                                    "ecr:GetDownloadUrlForLayer",
+                                    "ecr:BatchGetImage",
+                                    "ecr:CompleteLayerUpload",
+                                    "ecr:UploadLayerPart",
+                                    "ecr:InitiateLayerUpload",
+                                    "ecr:PutImage"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::GetAtt": [
+                                      "CodeStarCICDConstructEcrRepository5B240103",
+                                      "Arn"
+                                    ]
+                                  }
+                                },
+                                {
+                                  "Action": "ecr:GetAuthorizationToken",
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                },
+                                {
+                                  "Action": [
+                                    "logs:CreateLogGroup",
+                                    "logs:CreateLogStream",
+                                    "logs:PutLogEvents"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:",
+                                          {
+                                            "Ref": "AWS::Partition"
+                                          },
+                                          ":logs:us-west-2:322537213286:log-group:/aws/codebuild/",
+                                          {
+                                            "Ref": "CodeStarCICDConstructCodeBuildProject1EA0D7FD"
+                                          }
+                                        ]
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:",
+                                          {
+                                            "Ref": "AWS::Partition"
+                                          },
+                                          ":logs:us-west-2:322537213286:log-group:/aws/codebuild/",
+                                          {
+                                            "Ref": "CodeStarCICDConstructCodeBuildProject1EA0D7FD"
+                                          },
+                                          ":*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "codebuild:CreateReportGroup",
+                                    "codebuild:CreateReport",
+                                    "codebuild:UpdateReport",
+                                    "codebuild:BatchPutTestCases",
+                                    "codebuild:BatchPutCodeCoverages"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":codebuild:us-west-2:322537213286:report-group/",
+                                        {
+                                          "Ref": "CodeStarCICDConstructCodeBuildProject1EA0D7FD"
+                                        },
+                                        "-*"
+                                      ]
+                                    ]
+                                  }
+                                },
+                                {
+                                  "Action": [
+                                    "s3:GetObject*",
+                                    "s3:GetBucket*",
+                                    "s3:List*",
+                                    "s3:DeleteObject*",
+                                    "s3:PutObject",
+                                    "s3:PutObjectLegalHold",
+                                    "s3:PutObjectRetention",
+                                    "s3:PutObjectTagging",
+                                    "s3:PutObjectVersionTagging",
+                                    "s3:Abort*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "CodeStarCICDConstructArtifactsBucket7C75E95A",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "CodeStarCICDConstructArtifactsBucket7C75E95A",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "CodeStarCICDConstructcodeBuildServiceRoleDefaultPolicyDCD1E90D",
+                            "roles": [
+                              {
+                                "Ref": "CodeStarCICDConstructcodeBuildServiceRole3C9233FD"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.84.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.84.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.84.0"
+                }
+              },
+              "EcrRepository": {
+                "id": "EcrRepository",
+                "path": "CICDService/CodeStarCICDConstruct/EcrRepository",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CICDService/CodeStarCICDConstruct/EcrRepository/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ECR::Repository",
+                      "aws:cdk:cloudformation:props": {
+                        "repositoryName": "generative-ai-service",
+                        "repositoryPolicyText": {
+                          "Statement": [
+                            {
+                              "Action": [
+                                "ecr:BatchCheckLayerAvailability",
+                                "ecr:GetDownloadUrlForLayer",
+                                "ecr:BatchGetImage"
+                              ],
+                              "Effect": "Allow",
+                              "Principal": {
+                                "AWS": {
+                                  "Fn::ImportValue": "CoreInfraStack:ExportsOutputFnGetAttCoreInfrastructureConstructECSTaskExecutionRoleD30C7A1DArn438CCB87"
+                                }
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecr.CfnRepository",
+                      "version": "2.84.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecr.Repository",
+                  "version": "2.84.0"
+                }
+              },
+              "CodeBuildProject": {
+                "id": "CodeBuildProject",
+                "path": "CICDService/CodeStarCICDConstruct/CodeBuildProject",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CICDService/CodeStarCICDConstruct/CodeBuildProject/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::CodeBuild::Project",
+                      "aws:cdk:cloudformation:props": {
+                        "artifacts": {
+                          "type": "NO_ARTIFACTS"
+                        },
+                        "environment": {
+                          "type": "LINUX_CONTAINER",
+                          "image": "aws/codebuild/standard:5.0",
+                          "imagePullCredentialsType": "CODEBUILD",
+                          "privilegedMode": true,
+                          "computeType": "BUILD_GENERAL1_SMALL",
+                          "environmentVariables": [
+                            {
+                              "name": "REPO_URL",
+                              "type": "PLAINTEXT",
+                              "value": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    {
+                                      "Fn::Select": [
+                                        4,
+                                        {
+                                          "Fn::Split": [
+                                            ":",
+                                            {
+                                              "Fn::GetAtt": [
+                                                "CodeStarCICDConstructEcrRepository5B240103",
+                                                "Arn"
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    ".dkr.ecr.",
+                                    {
+                                      "Fn::Select": [
+                                        3,
+                                        {
+                                          "Fn::Split": [
+                                            ":",
+                                            {
+                                              "Fn::GetAtt": [
+                                                "CodeStarCICDConstructEcrRepository5B240103",
+                                                "Arn"
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    ".",
+                                    {
+                                      "Ref": "AWS::URLSuffix"
+                                    },
+                                    "/",
+                                    {
+                                      "Ref": "CodeStarCICDConstructEcrRepository5B240103"
+                                    }
+                                  ]
+                                ]
+                              }
+                            },
+                            {
+                              "name": "CONTAINER_NAME",
+                              "type": "PLAINTEXT",
+                              "value": "web-container"
+                            },
+                            {
+                              "name": "SERVICE_PORT",
+                              "type": "PLAINTEXT",
+                              "value": "80"
+                            },
+                            {
+                              "name": "FOLDER_PATH",
+                              "type": "PLAINTEXT",
+                              "value": "./cdk/examples/generative_ai_service/web-app/."
+                            },
+                            {
+                              "name": "ECS_EXEC_ROLE_ARN",
+                              "type": "PLAINTEXT",
+                              "value": {
+                                "Fn::GetAtt": [
+                                  "CodeStarCICDConstructcodeBuildServiceRole3C9233FD",
+                                  "Arn"
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        "serviceRole": {
+                          "Fn::GetAtt": [
+                            "CodeStarCICDConstructcodeBuildServiceRole3C9233FD",
+                            "Arn"
+                          ]
+                        },
+                        "source": {
+                          "type": "GITHUB",
+                          "reportBuildStatus": true,
+                          "location": "https://github.com/napkin-dl/ecs-blueprints.git",
+                          "buildSpec": "./application-code/ecsdemo-cicd/buildspec.yml"
+                        },
+                        "cache": {
+                          "type": "NO_CACHE"
+                        },
+                        "description": "Code build project for the application",
+                        "encryptionKey": "alias/aws/s3",
+                        "sourceVersion": "main"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_codebuild.CfnProject",
+                      "version": "2.84.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_codebuild.Project",
+                  "version": "2.84.0"
+                }
+              },
+              "ArtifactsBucket": {
+                "id": "ArtifactsBucket",
+                "path": "CICDService/CodeStarCICDConstruct/ArtifactsBucket",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CICDService/CodeStarCICDConstruct/ArtifactsBucket/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                      "aws:cdk:cloudformation:props": {
+                        "bucketEncryption": {
+                          "serverSideEncryptionConfiguration": [
+                            {
+                              "serverSideEncryptionByDefault": {
+                                "sseAlgorithm": "AES256"
+                              }
+                            }
+                          ]
+                        },
+                        "publicAccessBlockConfiguration": {
+                          "blockPublicAcls": true,
+                          "blockPublicPolicy": true,
+                          "ignorePublicAcls": true,
+                          "restrictPublicBuckets": true
+                        },
+                        "tags": [
+                          {
+                            "key": "aws-cdk:auto-delete-objects",
+                            "value": "true"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "Policy": {
+                    "id": "Policy",
+                    "path": "CICDService/CodeStarCICDConstruct/ArtifactsBucket/Policy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "CICDService/CodeStarCICDConstruct/ArtifactsBucket/Policy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
+                          "aws:cdk:cloudformation:props": {
+                            "bucket": {
+                              "Ref": "CodeStarCICDConstructArtifactsBucket7C75E95A"
+                            },
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "s3:GetBucket*",
+                                    "s3:List*",
+                                    "s3:DeleteObject*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "AWS": {
+                                      "Fn::GetAtt": [
+                                        "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                                        "Arn"
+                                      ]
+                                    }
+                                  },
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "CodeStarCICDConstructArtifactsBucket7C75E95A",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "CodeStarCICDConstructArtifactsBucket7C75E95A",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": "s3:PutObject",
+                                  "Condition": {
+                                    "StringNotEquals": {
+                                      "s3:x-amz-server-side-encryption": "aws:kms"
+                                    }
+                                  },
+                                  "Effect": "Deny",
+                                  "Principal": {
+                                    "AWS": "*"
+                                  },
+                                  "Resource": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        {
+                                          "Fn::GetAtt": [
+                                            "CodeStarCICDConstructArtifactsBucket7C75E95A",
+                                            "Arn"
+                                          ]
+                                        },
+                                        "/*"
+                                      ]
+                                    ]
+                                  }
+                                },
+                                {
+                                  "Action": "s3:*",
+                                  "Condition": {
+                                    "Bool": {
+                                      "aws:SecureTransport": "false"
+                                    }
+                                  },
+                                  "Effect": "Deny",
+                                  "Principal": {
+                                    "AWS": "*"
+                                  },
+                                  "Resource": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        {
+                                          "Fn::GetAtt": [
+                                            "CodeStarCICDConstructArtifactsBucket7C75E95A",
+                                            "Arn"
+                                          ]
+                                        },
+                                        "/*"
+                                      ]
+                                    ]
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3.CfnBucketPolicy",
+                          "version": "2.84.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketPolicy",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "AutoDeleteObjectsCustomResource": {
+                    "id": "AutoDeleteObjectsCustomResource",
+                    "path": "CICDService/CodeStarCICDConstruct/ArtifactsBucket/AutoDeleteObjectsCustomResource",
+                    "children": {
+                      "Default": {
+                        "id": "Default",
+                        "path": "CICDService/CodeStarCICDConstruct/ArtifactsBucket/AutoDeleteObjectsCustomResource/Default",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.CfnResource",
+                          "version": "2.84.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CustomResource",
+                      "version": "2.84.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.Bucket",
+                  "version": "2.84.0"
+                }
+              },
+              "CodePipelineRole": {
+                "id": "CodePipelineRole",
+                "path": "CICDService/CodeStarCICDConstruct/CodePipelineRole",
+                "children": {
+                  "ImportCodePipelineRole": {
+                    "id": "ImportCodePipelineRole",
+                    "path": "CICDService/CodeStarCICDConstruct/CodePipelineRole/ImportCodePipelineRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CICDService/CodeStarCICDConstruct/CodePipelineRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "codepipeline.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "CICDService/CodeStarCICDConstruct/CodePipelineRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "CICDService/CodeStarCICDConstruct/CodePipelineRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "iam:PassRole",
+                                    "sts:AssumeRole",
+                                    "codecommit:Get*",
+                                    "codecommit:List*",
+                                    "codecommit:GitPull",
+                                    "codecommit:UploadArchive",
+                                    "codecommit:CancelUploadArchive",
+                                    "codebuild:BatchGetBuilds",
+                                    "codebuild:StartBuild",
+                                    "codedeploy:CreateDeployment",
+                                    "codedeploy:Get*",
+                                    "codedeploy:RegisterApplicationRevision",
+                                    "s3:Get*",
+                                    "s3:List*",
+                                    "s3:PutObject"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                },
+                                {
+                                  "Action": [
+                                    "s3:GetObject*",
+                                    "s3:GetBucket*",
+                                    "s3:List*",
+                                    "s3:DeleteObject*",
+                                    "s3:PutObject",
+                                    "s3:PutObjectLegalHold",
+                                    "s3:PutObjectRetention",
+                                    "s3:PutObjectTagging",
+                                    "s3:PutObjectVersionTagging",
+                                    "s3:Abort*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "CodeStarCICDConstructArtifactsBucket7C75E95A",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "CodeStarCICDConstructArtifactsBucket7C75E95A",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::GetAtt": [
+                                      "CodeStarCICDConstructEcsRollingDeploymentBuildCodePipelineActionRoleF59B03CD",
+                                      "Arn"
+                                    ]
+                                  }
+                                },
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::GetAtt": [
+                                      "CodeStarCICDConstructEcsRollingDeploymentDeployCodePipelineActionRoleC264C968",
+                                      "Arn"
+                                    ]
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "CodeStarCICDConstructCodePipelineRoleDefaultPolicyC7A5CFA5",
+                            "roles": [
+                              {
+                                "Ref": "CodeStarCICDConstructCodePipelineRole7736C65F"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.84.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.84.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.84.0"
+                }
+              },
+              "EcsRollingDeployment": {
+                "id": "EcsRollingDeployment",
+                "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::CodePipeline::Pipeline",
+                      "aws:cdk:cloudformation:props": {
+                        "roleArn": {
+                          "Fn::GetAtt": [
+                            "CodeStarCICDConstructCodePipelineRole7736C65F",
+                            "Arn"
+                          ]
+                        },
+                        "stages": [
+                          {
+                            "name": "Source",
+                            "actions": [
+                              {
+                                "name": "source",
+                                "outputArtifacts": [
+                                  {
+                                    "name": "SourceArtifact"
+                                  }
+                                ],
+                                "actionTypeId": {
+                                  "category": "Source",
+                                  "version": "1",
+                                  "owner": "ThirdParty",
+                                  "provider": "GitHub"
+                                },
+                                "configuration": {
+                                  "Owner": "napkin-dl",
+                                  "Repo": "ecs-blueprints",
+                                  "Branch": "main",
+                                  "OAuthToken": "{{resolve:secretsmanager:ecs-github-token:SecretString:::}}",
+                                  "PollForSourceChanges": false
+                                },
+                                "runOrder": 1
+                              }
+                            ]
+                          },
+                          {
+                            "name": "Build",
+                            "actions": [
+                              {
+                                "name": "Build",
+                                "inputArtifacts": [
+                                  {
+                                    "name": "SourceArtifact"
+                                  }
+                                ],
+                                "outputArtifacts": [
+                                  {
+                                    "name": "BuildArtifact"
+                                  }
+                                ],
+                                "actionTypeId": {
+                                  "category": "Build",
+                                  "version": "1",
+                                  "owner": "AWS",
+                                  "provider": "CodeBuild"
+                                },
+                                "configuration": {
+                                  "ProjectName": {
+                                    "Ref": "CodeStarCICDConstructCodeBuildProject1EA0D7FD"
+                                  }
+                                },
+                                "runOrder": 1,
+                                "roleArn": {
+                                  "Fn::GetAtt": [
+                                    "CodeStarCICDConstructEcsRollingDeploymentBuildCodePipelineActionRoleF59B03CD",
+                                    "Arn"
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "name": "Deploy",
+                            "actions": [
+                              {
+                                "name": "Deploy",
+                                "inputArtifacts": [
+                                  {
+                                    "name": "BuildArtifact"
+                                  }
+                                ],
+                                "actionTypeId": {
+                                  "category": "Deploy",
+                                  "version": "1",
+                                  "owner": "AWS",
+                                  "provider": "ECS"
+                                },
+                                "configuration": {
+                                  "ClusterName": {
+                                    "Fn::ImportValue": "CoreInfraStack:ExportsOutputRefCoreInfrastructureConstructEcsCluster53659F5A7A776767"
+                                  },
+                                  "ServiceName": {
+                                    "Fn::GetAtt": [
+                                      "CICDFargateLBServiceD3CDF0BD",
+                                      "Name"
+                                    ]
+                                  },
+                                  "FileName": "imagedefinitions.json"
+                                },
+                                "runOrder": 1,
+                                "roleArn": {
+                                  "Fn::GetAtt": [
+                                    "CodeStarCICDConstructEcsRollingDeploymentDeployCodePipelineActionRoleC264C968",
+                                    "Arn"
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "artifactStore": {
+                          "type": "S3",
+                          "location": {
+                            "Ref": "CodeStarCICDConstructArtifactsBucket7C75E95A"
+                          }
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_codepipeline.CfnPipeline",
+                      "version": "2.84.0"
+                    }
+                  },
+                  "Source": {
+                    "id": "Source",
+                    "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment/Source",
+                    "children": {
+                      "source": {
+                        "id": "source",
+                        "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment/Source/source",
+                        "children": {
+                          "WebhookResource": {
+                            "id": "WebhookResource",
+                            "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment/Source/source/WebhookResource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::CodePipeline::Webhook",
+                              "aws:cdk:cloudformation:props": {
+                                "authentication": "GITHUB_HMAC",
+                                "authenticationConfiguration": {
+                                  "secretToken": "{{resolve:secretsmanager:ecs-github-token:SecretString:::}}"
+                                },
+                                "filters": [
+                                  {
+                                    "jsonPath": "$.ref",
+                                    "matchEquals": "refs/heads/{Branch}"
+                                  }
+                                ],
+                                "targetAction": "source",
+                                "targetPipeline": {
+                                  "Ref": "CodeStarCICDConstructEcsRollingDeploymentF60E2704"
+                                },
+                                "targetPipelineVersion": 1,
+                                "registerWithThirdParty": true
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_codepipeline.CfnWebhook",
+                              "version": "2.84.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "constructs.Construct",
+                          "version": "10.3.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.3.0"
+                    }
+                  },
+                  "Build": {
+                    "id": "Build",
+                    "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment/Build",
+                    "children": {
+                      "Build": {
+                        "id": "Build",
+                        "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment/Build/Build",
+                        "children": {
+                          "CodePipelineActionRole": {
+                            "id": "CodePipelineActionRole",
+                            "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment/Build/Build/CodePipelineActionRole",
+                            "children": {
+                              "ImportCodePipelineActionRole": {
+                                "id": "ImportCodePipelineActionRole",
+                                "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment/Build/Build/CodePipelineActionRole/ImportCodePipelineActionRole",
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.Resource",
+                                  "version": "2.84.0"
+                                }
+                              },
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment/Build/Build/CodePipelineActionRole/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                                  "aws:cdk:cloudformation:props": {
+                                    "assumeRolePolicyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": "sts:AssumeRole",
+                                          "Effect": "Allow",
+                                          "Principal": {
+                                            "AWS": {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  "arn:",
+                                                  {
+                                                    "Ref": "AWS::Partition"
+                                                  },
+                                                  ":iam::322537213286:root"
+                                                ]
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                                  "version": "2.84.0"
+                                }
+                              },
+                              "DefaultPolicy": {
+                                "id": "DefaultPolicy",
+                                "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment/Build/Build/CodePipelineActionRole/DefaultPolicy",
+                                "children": {
+                                  "Resource": {
+                                    "id": "Resource",
+                                    "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment/Build/Build/CodePipelineActionRole/DefaultPolicy/Resource",
+                                    "attributes": {
+                                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                      "aws:cdk:cloudformation:props": {
+                                        "policyDocument": {
+                                          "Statement": [
+                                            {
+                                              "Action": [
+                                                "codebuild:BatchGetBuilds",
+                                                "codebuild:StartBuild",
+                                                "codebuild:StopBuild"
+                                              ],
+                                              "Effect": "Allow",
+                                              "Resource": {
+                                                "Fn::GetAtt": [
+                                                  "CodeStarCICDConstructCodeBuildProject1EA0D7FD",
+                                                  "Arn"
+                                                ]
+                                              }
+                                            }
+                                          ],
+                                          "Version": "2012-10-17"
+                                        },
+                                        "policyName": "CodeStarCICDConstructEcsRollingDeploymentBuildCodePipelineActionRoleDefaultPolicy241F7F1A",
+                                        "roles": [
+                                          {
+                                            "Ref": "CodeStarCICDConstructEcsRollingDeploymentBuildCodePipelineActionRoleF59B03CD"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "constructInfo": {
+                                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                                      "version": "2.84.0"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                                  "version": "2.84.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.Role",
+                              "version": "2.84.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "constructs.Construct",
+                          "version": "10.3.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.3.0"
+                    }
+                  },
+                  "Deploy": {
+                    "id": "Deploy",
+                    "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment/Deploy",
+                    "children": {
+                      "Deploy": {
+                        "id": "Deploy",
+                        "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment/Deploy/Deploy",
+                        "children": {
+                          "CodePipelineActionRole": {
+                            "id": "CodePipelineActionRole",
+                            "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment/Deploy/Deploy/CodePipelineActionRole",
+                            "children": {
+                              "ImportCodePipelineActionRole": {
+                                "id": "ImportCodePipelineActionRole",
+                                "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment/Deploy/Deploy/CodePipelineActionRole/ImportCodePipelineActionRole",
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.Resource",
+                                  "version": "2.84.0"
+                                }
+                              },
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment/Deploy/Deploy/CodePipelineActionRole/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                                  "aws:cdk:cloudformation:props": {
+                                    "assumeRolePolicyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": "sts:AssumeRole",
+                                          "Effect": "Allow",
+                                          "Principal": {
+                                            "AWS": {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  "arn:",
+                                                  {
+                                                    "Ref": "AWS::Partition"
+                                                  },
+                                                  ":iam::322537213286:root"
+                                                ]
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                                  "version": "2.84.0"
+                                }
+                              },
+                              "DefaultPolicy": {
+                                "id": "DefaultPolicy",
+                                "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment/Deploy/Deploy/CodePipelineActionRole/DefaultPolicy",
+                                "children": {
+                                  "Resource": {
+                                    "id": "Resource",
+                                    "path": "CICDService/CodeStarCICDConstruct/EcsRollingDeployment/Deploy/Deploy/CodePipelineActionRole/DefaultPolicy/Resource",
+                                    "attributes": {
+                                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                      "aws:cdk:cloudformation:props": {
+                                        "policyDocument": {
+                                          "Statement": [
+                                            {
+                                              "Action": [
+                                                "ecs:DescribeServices",
+                                                "ecs:DescribeTaskDefinition",
+                                                "ecs:DescribeTasks",
+                                                "ecs:ListTasks",
+                                                "ecs:RegisterTaskDefinition",
+                                                "ecs:UpdateService"
+                                              ],
+                                              "Effect": "Allow",
+                                              "Resource": "*"
+                                            },
+                                            {
+                                              "Action": "iam:PassRole",
+                                              "Condition": {
+                                                "StringEqualsIfExists": {
+                                                  "iam:PassedToService": [
+                                                    "ec2.amazonaws.com",
+                                                    "ecs-tasks.amazonaws.com"
+                                                  ]
+                                                }
+                                              },
+                                              "Effect": "Allow",
+                                              "Resource": "*"
+                                            },
+                                            {
+                                              "Action": [
+                                                "s3:GetObject*",
+                                                "s3:GetBucket*",
+                                                "s3:List*"
+                                              ],
+                                              "Effect": "Allow",
+                                              "Resource": [
+                                                {
+                                                  "Fn::GetAtt": [
+                                                    "CodeStarCICDConstructArtifactsBucket7C75E95A",
+                                                    "Arn"
+                                                  ]
+                                                },
+                                                {
+                                                  "Fn::Join": [
+                                                    "",
+                                                    [
+                                                      {
+                                                        "Fn::GetAtt": [
+                                                          "CodeStarCICDConstructArtifactsBucket7C75E95A",
+                                                          "Arn"
+                                                        ]
+                                                      },
+                                                      "/*"
+                                                    ]
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "Version": "2012-10-17"
+                                        },
+                                        "policyName": "CodeStarCICDConstructEcsRollingDeploymentDeployCodePipelineActionRoleDefaultPolicy0109736E",
+                                        "roles": [
+                                          {
+                                            "Ref": "CodeStarCICDConstructEcsRollingDeploymentDeployCodePipelineActionRoleC264C968"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "constructInfo": {
+                                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                                      "version": "2.84.0"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                                  "version": "2.84.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.Role",
+                              "version": "2.84.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "constructs.Construct",
+                          "version": "10.3.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.3.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_codepipeline.Pipeline",
+                  "version": "2.84.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.3.0"
+            }
+          },
+          "Custom::S3AutoDeleteObjectsCustomResourceProvider": {
+            "id": "Custom::S3AutoDeleteObjectsCustomResourceProvider",
+            "path": "CICDService/Custom::S3AutoDeleteObjectsCustomResourceProvider",
+            "children": {
+              "Staging": {
+                "id": "Staging",
+                "path": "CICDService/Custom::S3AutoDeleteObjectsCustomResourceProvider/Staging",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.AssetStaging",
+                  "version": "2.84.0"
+                }
+              },
+              "Role": {
+                "id": "Role",
+                "path": "CICDService/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.84.0"
+                }
+              },
+              "Handler": {
+                "id": "Handler",
+                "path": "CICDService/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.84.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CustomResourceProvider",
+              "version": "2.84.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "CICDService/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "CICDService/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.84.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.3.0"
+            }
+          },
+          "BootstrapVersion": {
+            "id": "BootstrapVersion",
+            "path": "CICDService/BootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.84.0"
+            }
+          },
+          "CheckBootstrapVersion": {
+            "id": "CheckBootstrapVersion",
+            "path": "CICDService/CheckBootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnRule",
+              "version": "2.84.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.84.0"
+        }
+      },
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.3.0"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.84.0"
+    }
+  }
+}

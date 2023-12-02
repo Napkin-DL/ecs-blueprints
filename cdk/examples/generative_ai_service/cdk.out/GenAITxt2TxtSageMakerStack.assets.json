@@ -1,0 +1,20 @@
+{
+  "version": "32.0.0",
+  "files": {
+    "63bcececd4e524ce4a57f0f674a982a6dbedfb5af7f5345267bcc546a5c3cb9a": {
+      "source": {
+        "path": "GenAITxt2TxtSageMakerStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "322537213286-us-west-2": {
+          "bucketName": "cdk-hnb659fds-assets-322537213286-us-west-2",
+          "objectKey": "63bcececd4e524ce4a57f0f674a982a6dbedfb5af7f5345267bcc546a5c3cb9a.json",
+          "region": "us-west-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::322537213286:role/cdk-hnb659fds-file-publishing-role-322537213286-us-west-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

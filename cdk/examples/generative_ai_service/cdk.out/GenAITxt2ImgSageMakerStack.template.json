@@ -1,0 +1,175 @@
+{
+ "Resources": {
+  "GenAISageMakerPolicyBD87083C": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "sagemaker.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonS3FullAccess"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonSageMakerFullAccess"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "GenAITxt2ImgSageMakerStack/GenAISageMakerPolicy/Resource"
+   }
+  },
+  "StableDiffusionText2ImgModel": {
+   "Type": "AWS::SageMaker::Model",
+   "Properties": {
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "GenAISageMakerPolicyBD87083C",
+      "Arn"
+     ]
+    },
+    "Containers": [
+     {
+      "Environment": {
+       "MMS_MAX_RESPONSE_SIZE": "20000000",
+       "SAGEMAKER_CONTAINER_LOG_LEVEL": "20",
+       "SAGEMAKER_PROGRAM": "inference.py",
+       "SAGEMAKER_REGION": "us-west-2",
+       "SAGEMAKER_SUBMIT_DIRECTORY": "/opt/ml/model/code"
+      },
+      "Image": "763104351884.dkr.ecr.us-west-2.amazonaws.com/huggingface-pytorch-inference:1.10.2-transformers4.17.0-gpu-py38-cu113-ubuntu20.04",
+      "ModelDataUrl": "s3://jumpstart-cache-prod-us-west-2/stabilityai-infer/prepack/v1.0.0/infer-prepack-model-txt2img-stabilityai-stable-diffusion-v2-1-base.tar.gz"
+     }
+    ],
+    "ModelName": "StableDiffusionText2Img-Model"
+   },
+   "Metadata": {
+    "aws:cdk:path": "GenAITxt2ImgSageMakerStack/StableDiffusionText2ImgModel"
+   }
+  },
+  "StableDiffusionText2ImgConfig": {
+   "Type": "AWS::SageMaker::EndpointConfig",
+   "Properties": {
+    "ProductionVariants": [
+     {
+      "InitialInstanceCount": 1,
+      "InitialVariantWeight": 1,
+      "InstanceType": "ml.g4dn.2xlarge",
+      "ModelName": {
+       "Fn::GetAtt": [
+        "StableDiffusionText2ImgModel",
+        "ModelName"
+       ]
+      },
+      "VariantName": "AllTraffic"
+     }
+    ],
+    "EndpointConfigName": "StableDiffusionText2Img-Config"
+   },
+   "Metadata": {
+    "aws:cdk:path": "GenAITxt2ImgSageMakerStack/StableDiffusionText2ImgConfig"
+   }
+  },
+  "StableDiffusionText2ImgEndpoint": {
+   "Type": "AWS::SageMaker::Endpoint",
+   "Properties": {
+    "EndpointConfigName": {
+     "Fn::GetAtt": [
+      "StableDiffusionText2ImgConfig",
+      "EndpointConfigName"
+     ]
+    },
+    "EndpointName": "StableDiffusionText2Img-Endpoint"
+   },
+   "Metadata": {
+    "aws:cdk:path": "GenAITxt2ImgSageMakerStack/StableDiffusionText2ImgEndpoint"
+   }
+  },
+  "txt2imgsmendpointB247FF0A": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "StableDiffusionText2ImgEndpoint",
+      "EndpointName"
+     ]
+    },
+    "Name": "txt2img_sm_endpoint"
+   },
+   "Metadata": {
+    "aws:cdk:path": "GenAITxt2ImgSageMakerStack/txt2img_sm_endpoint/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02NzQ6CQAyEn4X7UvHnoGfi0YTgA5gKBStsl+wuMWaz7y4bjPE0na+dzg6OBygyfLm8aYd85DuEq8dmUAu6BUYNoTYjqbKTpFE57EnjQBbCwi6mpTEtz9JOhsWXRjru/8kScTp9tSx9hRY1ebLp4mdiVDU5M9tmLfrOUVVv/zCy2cO2gFP2dMy5ncWzJqhX/QCYXuxnwQAAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "GenAITxt2ImgSageMakerStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

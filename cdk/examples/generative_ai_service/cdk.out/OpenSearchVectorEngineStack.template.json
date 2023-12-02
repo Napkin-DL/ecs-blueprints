@@ -1,0 +1,137 @@
+{
+ "Resources": {
+  "samplevectordbnwmovie": {
+   "Type": "AWS::OpenSearchServerless::SecurityPolicy",
+   "Properties": {
+    "Name": "sample-vectordb-nw-movie",
+    "Policy": "[{\"Rules\":[{\"ResourceType\":\"collection\",\"Resource\":[\"collection/movie\"]}, {\"ResourceType\":\"dashboard\",\"Resource\":[\"collection/movie\"]}],\"AllowFromPublic\":true}]",
+    "Type": "network"
+   },
+   "Metadata": {
+    "aws:cdk:path": "OpenSearchVectorEngineStack/sample-vectordb-nw-movie"
+   }
+  },
+  "samplevectordbencryptmovie": {
+   "Type": "AWS::OpenSearchServerless::SecurityPolicy",
+   "Properties": {
+    "Name": "sample-vectordb-encryption-movie",
+    "Policy": "{\"Rules\":[{\"ResourceType\":\"collection\",\"Resource\":[\"collection/movie\"]}],\"AWSOwnedKey\":true}",
+    "Type": "encryption"
+   },
+   "Metadata": {
+    "aws:cdk:path": "OpenSearchVectorEngineStack/sample-vectordb-encrypt-movie"
+   }
+  },
+  "samplevectordbdatamovie": {
+   "Type": "AWS::OpenSearchServerless::AccessPolicy",
+   "Properties": {
+    "Name": "sample-vectordb-data-movie",
+    "Policy": "[{\"Rules\":[{\"ResourceType\":\"index\",\"Resource\":[\"index/movie/*\"], \"Permission\": [\"aoss:*\"]}, {\"ResourceType\":\"collection\",\"Resource\":[\"collection/movie\"], \"Permission\": [\"aoss:*\"]}], \"Principal\": [\"arn:aws:iam::322537213286:role/GenAIServiceTaskRole\"]}]",
+    "Type": "data"
+   },
+   "Metadata": {
+    "aws:cdk:path": "OpenSearchVectorEngineStack/sample-vectordb-data-movie"
+   }
+  },
+  "vectordbcollectionmovie": {
+   "Type": "AWS::OpenSearchServerless::Collection",
+   "Properties": {
+    "Name": "movie",
+    "Description": "Serverless vector db",
+    "Type": "VECTORSEARCH"
+   },
+   "DependsOn": [
+    "samplevectordbdatamovie",
+    "samplevectordbencryptmovie",
+    "samplevectordbnwmovie"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "OpenSearchVectorEngineStack/vector_db_collection_movie"
+   }
+  },
+  "aossendpointA881218D": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "vectordbcollectionmovie",
+      "CollectionEndpoint"
+     ]
+    },
+    "Name": "aoss_endpoint"
+   },
+   "Metadata": {
+    "aws:cdk:path": "OpenSearchVectorEngineStack/aoss_endpoint/Resource"
+   }
+  },
+  "aossregionED4AB4B9": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": "us-west-2",
+    "Name": "aoss_region"
+   },
+   "Metadata": {
+    "aws:cdk:path": "OpenSearchVectorEngineStack/aoss_region/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/0WMzQ6CMBCEn4V7qfhz0KPhASTwAKauq1RLS3a3GkL67tKY6Gnmm5nMRu93uirMm0u4PktnL3ruxMBTLdF5DiN6RkPQM9ILySGznuub7xAiWZma4CxMakmOAEv55zo4hyA2+KSYh3xL1t8bQ2ZAQcqbH6SU8RRljJJdixwiASbVTNIHv9rqdaUPxYOtLSl6sQPq9qsf79XfEcMAAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "OpenSearchVectorEngineStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "collectionendpointmovie": {
+   "Description": "Collection Endpoint",
+   "Value": {
+    "Fn::GetAtt": [
+     "vectordbcollectionmovie",
+     "CollectionEndpoint"
+    ]
+   },
+   "Export": {
+    "Name": "collection-endpoint-url"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

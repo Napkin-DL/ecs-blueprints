@@ -1,0 +1,178 @@
+{
+ "Resources": {
+  "GenAISageMakerPolicyBD87083C": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "sagemaker.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonS3FullAccess"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonSageMakerFullAccess"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "GenAITxt2TxtSageMakerStack/GenAISageMakerPolicy/Resource"
+   }
+  },
+  "HuggingfaceText2TextFlanModel": {
+   "Type": "AWS::SageMaker::Model",
+   "Properties": {
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "GenAISageMakerPolicyBD87083C",
+      "Arn"
+     ]
+    },
+    "Containers": [
+     {
+      "Environment": {
+       "MODEL_CACHE_ROOT": "/opt/ml/model",
+       "SAGEMAKER_ENV": "1",
+       "SAGEMAKER_MODEL_SERVER_TIMEOUT": "3600",
+       "SAGEMAKER_MODEL_SERVER_WORKERS": "1",
+       "SAGEMAKER_PROGRAM": "inference.py",
+       "SAGEMAKER_REGION": "us-west-2",
+       "SAGEMAKER_SUBMIT_DIRECTORY": "/opt/ml/model/code/",
+       "TS_DEFAULT_WORKERS_PER_MODEL": "1"
+      },
+      "Image": "763104351884.dkr.ecr.us-west-2.amazonaws.com/huggingface-pytorch-inference:1.13.1-transformers4.26.0-gpu-py39-cu117-ubuntu20.04",
+      "ModelDataUrl": "s3://jumpstart-cache-prod-us-west-2/huggingface-infer/prepack/v1.1.2/infer-prepack-huggingface-text2text-flan-t5-xl.tar.gz"
+     }
+    ],
+    "ModelName": "HuggingfaceText2TextFlan-Model"
+   },
+   "Metadata": {
+    "aws:cdk:path": "GenAITxt2TxtSageMakerStack/HuggingfaceText2TextFlanModel"
+   }
+  },
+  "HuggingfaceText2TextFlanConfig": {
+   "Type": "AWS::SageMaker::EndpointConfig",
+   "Properties": {
+    "ProductionVariants": [
+     {
+      "InitialInstanceCount": 1,
+      "InitialVariantWeight": 1,
+      "InstanceType": "ml.g4dn.2xlarge",
+      "ModelName": {
+       "Fn::GetAtt": [
+        "HuggingfaceText2TextFlanModel",
+        "ModelName"
+       ]
+      },
+      "VariantName": "AllTraffic"
+     }
+    ],
+    "EndpointConfigName": "HuggingfaceText2TextFlan-Config"
+   },
+   "Metadata": {
+    "aws:cdk:path": "GenAITxt2TxtSageMakerStack/HuggingfaceText2TextFlanConfig"
+   }
+  },
+  "HuggingfaceText2TextFlanEndpoint": {
+   "Type": "AWS::SageMaker::Endpoint",
+   "Properties": {
+    "EndpointConfigName": {
+     "Fn::GetAtt": [
+      "HuggingfaceText2TextFlanConfig",
+      "EndpointConfigName"
+     ]
+    },
+    "EndpointName": "HuggingfaceText2TextFlan-Endpoint"
+   },
+   "Metadata": {
+    "aws:cdk:path": "GenAITxt2TxtSageMakerStack/HuggingfaceText2TextFlanEndpoint"
+   }
+  },
+  "txt2txtsmendpoint682D6587": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "HuggingfaceText2TextFlanEndpoint",
+      "EndpointName"
+     ]
+    },
+    "Name": "txt2txt_sm_endpoint"
+   },
+   "Metadata": {
+    "aws:cdk:path": "GenAITxt2TxtSageMakerStack/txt2txt_sm_endpoint/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02NzQ6CQAyEn4X7UvHnoGfi0YTgA5gKBStsl+wuMWaz7y4bjPE0na+dzg6OBygyfLm8aYd85DuEq8dmUAu6BUYNoTYjqbKTpFE57EnjQBbCwi6mpTEtz9JOhsWXRjru/8kScTp9tSx9hRY1ebLp4mdiVDU5M9tmLfrOUVVv/zCy2cO2gFP2dMy5ncWzJqhX/QCYXuxnwQAAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "GenAITxt2TxtSageMakerStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

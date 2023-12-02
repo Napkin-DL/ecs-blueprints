@@ -1,0 +1,20 @@
+{
+  "version": "32.0.0",
+  "files": {
+    "508b4d47c4e356af6d09ffe7cc04cd444422ea51fc66863b7a489f48cbaa1650": {
+      "source": {
+        "path": "GenAIService.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "322537213286-us-west-2": {
+          "bucketName": "cdk-hnb659fds-assets-322537213286-us-west-2",
+          "objectKey": "508b4d47c4e356af6d09ffe7cc04cd444422ea51fc66863b7a489f48cbaa1650.json",
+          "region": "us-west-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::322537213286:role/cdk-hnb659fds-file-publishing-role-322537213286-us-west-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

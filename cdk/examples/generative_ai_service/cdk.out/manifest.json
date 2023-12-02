@@ -1,0 +1,787 @@
+{
+  "version": "32.0.0",
+  "artifacts": {
+    "GenAITxt2ImgSageMakerStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "GenAITxt2ImgSageMakerStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "GenAITxt2ImgSageMakerStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://322537213286/us-west-2",
+      "properties": {
+        "templateFile": "GenAITxt2ImgSageMakerStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::322537213286:role/cdk-hnb659fds-deploy-role-322537213286-us-west-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::322537213286:role/cdk-hnb659fds-cfn-exec-role-322537213286-us-west-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-322537213286-us-west-2/098489040de8ab43ab2bba1ad66f8964440cfcdb3b1fcb8fbc656bdf5de726a8.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "GenAITxt2ImgSageMakerStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::322537213286:role/cdk-hnb659fds-lookup-role-322537213286-us-west-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "GenAITxt2ImgSageMakerStack.assets"
+      ],
+      "metadata": {
+        "/GenAITxt2ImgSageMakerStack/GenAISageMakerPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAISageMakerPolicyBD87083C"
+          }
+        ],
+        "/GenAITxt2ImgSageMakerStack/StableDiffusionText2ImgModel": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StableDiffusionText2ImgModel"
+          }
+        ],
+        "/GenAITxt2ImgSageMakerStack/StableDiffusionText2ImgConfig": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StableDiffusionText2ImgConfig"
+          }
+        ],
+        "/GenAITxt2ImgSageMakerStack/StableDiffusionText2ImgEndpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StableDiffusionText2ImgEndpoint"
+          }
+        ],
+        "/GenAITxt2ImgSageMakerStack/txt2img_sm_endpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "txt2imgsmendpointB247FF0A"
+          }
+        ],
+        "/GenAITxt2ImgSageMakerStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/GenAITxt2ImgSageMakerStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/GenAITxt2ImgSageMakerStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "GenAITxt2ImgSageMakerStack"
+    },
+    "GenAITxt2TxtSageMakerStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "GenAITxt2TxtSageMakerStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "GenAITxt2TxtSageMakerStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://322537213286/us-west-2",
+      "properties": {
+        "templateFile": "GenAITxt2TxtSageMakerStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::322537213286:role/cdk-hnb659fds-deploy-role-322537213286-us-west-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::322537213286:role/cdk-hnb659fds-cfn-exec-role-322537213286-us-west-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-322537213286-us-west-2/63bcececd4e524ce4a57f0f674a982a6dbedfb5af7f5345267bcc546a5c3cb9a.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "GenAITxt2TxtSageMakerStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::322537213286:role/cdk-hnb659fds-lookup-role-322537213286-us-west-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "GenAITxt2TxtSageMakerStack.assets"
+      ],
+      "metadata": {
+        "/GenAITxt2TxtSageMakerStack/GenAISageMakerPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAISageMakerPolicyBD87083C"
+          }
+        ],
+        "/GenAITxt2TxtSageMakerStack/HuggingfaceText2TextFlanModel": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "HuggingfaceText2TextFlanModel"
+          }
+        ],
+        "/GenAITxt2TxtSageMakerStack/HuggingfaceText2TextFlanConfig": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "HuggingfaceText2TextFlanConfig"
+          }
+        ],
+        "/GenAITxt2TxtSageMakerStack/HuggingfaceText2TextFlanEndpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "HuggingfaceText2TextFlanEndpoint"
+          }
+        ],
+        "/GenAITxt2TxtSageMakerStack/txt2txt_sm_endpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "txt2txtsmendpoint682D6587"
+          }
+        ],
+        "/GenAITxt2TxtSageMakerStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/GenAITxt2TxtSageMakerStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/GenAITxt2TxtSageMakerStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "GenAITxt2TxtSageMakerStack"
+    },
+    "OpenSearchVectorEngineStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "OpenSearchVectorEngineStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "OpenSearchVectorEngineStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://322537213286/us-west-2",
+      "properties": {
+        "templateFile": "OpenSearchVectorEngineStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::322537213286:role/cdk-hnb659fds-deploy-role-322537213286-us-west-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::322537213286:role/cdk-hnb659fds-cfn-exec-role-322537213286-us-west-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-322537213286-us-west-2/fb4a903a87ba86c826f4231bb0ae7e09a46c351c2b5b4a39cd2d4051739d0e26.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "OpenSearchVectorEngineStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::322537213286:role/cdk-hnb659fds-lookup-role-322537213286-us-west-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "OpenSearchVectorEngineStack.assets"
+      ],
+      "metadata": {
+        "/OpenSearchVectorEngineStack/sample-vectordb-nw-movie": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "samplevectordbnwmovie"
+          }
+        ],
+        "/OpenSearchVectorEngineStack/sample-vectordb-encrypt-movie": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "samplevectordbencryptmovie"
+          }
+        ],
+        "/OpenSearchVectorEngineStack/sample-vectordb-data-movie": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "samplevectordbdatamovie"
+          }
+        ],
+        "/OpenSearchVectorEngineStack/vector_db_collection_movie": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "vectordbcollectionmovie"
+          }
+        ],
+        "/OpenSearchVectorEngineStack/collection_endpoint_movie": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "collectionendpointmovie"
+          }
+        ],
+        "/OpenSearchVectorEngineStack/aoss_endpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "aossendpointA881218D"
+          }
+        ],
+        "/OpenSearchVectorEngineStack/aoss_region/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "aossregionED4AB4B9"
+          }
+        ],
+        "/OpenSearchVectorEngineStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/OpenSearchVectorEngineStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/OpenSearchVectorEngineStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "OpenSearchVectorEngineStack"
+    },
+    "CoreInfraStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "CoreInfraStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "CoreInfraStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://322537213286/us-west-2",
+      "properties": {
+        "templateFile": "CoreInfraStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::322537213286:role/cdk-hnb659fds-deploy-role-322537213286-us-west-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::322537213286:role/cdk-hnb659fds-cfn-exec-role-322537213286-us-west-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-322537213286-us-west-2/998dbe821fb72b18ab19b2c5c57aa77e0157f7b867b3b13b0131a68feb7bf332.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "CoreInfraStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::322537213286:role/cdk-hnb659fds-lookup-role-322537213286-us-west-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "CoreInfraStack.assets"
+      ],
+      "metadata": {
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcC95F565C"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPublicSubnet1Subnet4D3E05C8"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPublicSubnet1RouteTable8B658892"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPublicSubnet1RouteTableAssociation1D77BECE"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPublicSubnet1DefaultRouteCAE6BA3F"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPublicSubnet1EIP335B50B5"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPublicSubnet1NATGateway5E185F5F"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPublicSubnet2Subnet1D2A6326"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPublicSubnet2RouteTable8C168FD1"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPublicSubnet2RouteTableAssociation1E353BC7"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPublicSubnet2DefaultRoute54FB6B0F"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet3/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPublicSubnet3Subnet6161C329"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet3/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPublicSubnet3RouteTable9EA065DC"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet3/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPublicSubnet3RouteTableAssociation3C800690"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PublicSubnet3/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPublicSubnet3DefaultRouteD24E8DBA"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPrivateSubnet1Subnet1EE27350"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPrivateSubnet1RouteTable647415B4"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPrivateSubnet1RouteTableAssociation1AE75637"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPrivateSubnet1DefaultRouteB6F88C52"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPrivateSubnet2SubnetF4514B14"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPrivateSubnet2RouteTable983FCEB2"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPrivateSubnet2RouteTableAssociationEF82C221"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPrivateSubnet2DefaultRouteD5B17F60"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet3/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPrivateSubnet3Subnet05430C16"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet3/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPrivateSubnet3RouteTableD3D8807E"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet3/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPrivateSubnet3RouteTableAssociation1496DCE8"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/PrivateSubnet3/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcPrivateSubnet3DefaultRouteC8DCB92E"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcIGW4F1B89AA"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsVpc/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsVpcVPCGWC407A86C"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/CloudWatchLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructCloudWatchLogGroupF001FF94"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/EcsCluster/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructEcsCluster53659F5A"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/default-namespace/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructdefaultnamespaceCE89263E"
+          }
+        ],
+        "/CoreInfraStack/CoreInfrastructureConstruct/ECSTaskExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CoreInfrastructureConstructECSTaskExecutionRoleD30C7A1D"
+          }
+        ],
+        "/CoreInfraStack/vpc_id": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "vpcid"
+          }
+        ],
+        "/CoreInfraStack/public_subnets": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "publicsubnets"
+          }
+        ],
+        "/CoreInfraStack/private_subnets": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "privatesubnets"
+          }
+        ],
+        "/CoreInfraStack/ecs_cluster_name": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsclustername"
+          }
+        ],
+        "/CoreInfraStack/ecs_cluster_id": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsclusterid"
+          }
+        ],
+        "/CoreInfraStack/ecs_task_execution_role_name": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecstaskexecutionrolename"
+          }
+        ],
+        "/CoreInfraStack/ecs_task_execution_role_arn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecstaskexecutionrolearn"
+          }
+        ],
+        "/CoreInfraStack/sd_namespaces": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "sdnamespaces"
+          }
+        ],
+        "/CoreInfraStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/CoreInfraStack/Exports/Output{\"Fn::GetAtt\":[\"CoreInfrastructureConstructECSTaskExecutionRoleD30C7A1D\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttCoreInfrastructureConstructECSTaskExecutionRoleD30C7A1DArn438CCB87"
+          }
+        ],
+        "/CoreInfraStack/Exports/Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPublicSubnet1Subnet4D3E05C8\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefCoreInfrastructureConstructEcsVpcPublicSubnet1Subnet4D3E05C885848C52"
+          }
+        ],
+        "/CoreInfraStack/Exports/Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPublicSubnet2Subnet1D2A6326\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefCoreInfrastructureConstructEcsVpcPublicSubnet2Subnet1D2A6326AA69043F"
+          }
+        ],
+        "/CoreInfraStack/Exports/Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPublicSubnet3Subnet6161C329\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefCoreInfrastructureConstructEcsVpcPublicSubnet3Subnet6161C3294036F562"
+          }
+        ],
+        "/CoreInfraStack/Exports/Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcC95F565C\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefCoreInfrastructureConstructEcsVpcC95F565C0964BC04"
+          }
+        ],
+        "/CoreInfraStack/Exports/Output{\"Ref\":\"CoreInfrastructureConstructEcsCluster53659F5A\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefCoreInfrastructureConstructEcsCluster53659F5A7A776767"
+          }
+        ],
+        "/CoreInfraStack/Exports/Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPrivateSubnet1Subnet1EE27350\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefCoreInfrastructureConstructEcsVpcPrivateSubnet1Subnet1EE273509701C99C"
+          }
+        ],
+        "/CoreInfraStack/Exports/Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPrivateSubnet2SubnetF4514B14\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefCoreInfrastructureConstructEcsVpcPrivateSubnet2SubnetF4514B146EC7CE47"
+          }
+        ],
+        "/CoreInfraStack/Exports/Output{\"Ref\":\"CoreInfrastructureConstructEcsVpcPrivateSubnet3Subnet05430C16\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefCoreInfrastructureConstructEcsVpcPrivateSubnet3Subnet05430C16B7D03F92"
+          }
+        ],
+        "/CoreInfraStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/CoreInfraStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "CoreInfraStack"
+    },
+    "GenAIService.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "GenAIService.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "GenAIService": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://322537213286/us-west-2",
+      "properties": {
+        "templateFile": "GenAIService.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::322537213286:role/cdk-hnb659fds-deploy-role-322537213286-us-west-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::322537213286:role/cdk-hnb659fds-cfn-exec-role-322537213286-us-west-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-322537213286-us-west-2/508b4d47c4e356af6d09ffe7cc04cd444422ea51fc66863b7a489f48cbaa1650.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "GenAIService.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::322537213286:role/cdk-hnb659fds-lookup-role-322537213286-us-west-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "CoreInfraStack",
+        "GenAIService.assets"
+      ],
+      "metadata": {
+        "/GenAIService/GenAIServiceLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAIServiceLogGroup7953C6FD"
+          }
+        ],
+        "/GenAIService/GenAIServiceLogGroup/Policy/ResourcePolicy": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAIServiceLogGroupPolicyResourcePolicy4FEA2D8D"
+          }
+        ],
+        "/GenAIService/GenAIServiceTaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAIServiceTaskRole21FC659E"
+          }
+        ],
+        "/GenAIService/GenAIServiceTaskRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAIServiceTaskRoleDefaultPolicy28669611"
+          }
+        ],
+        "/GenAIService/EcsTaskRoleFromArn/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsTaskRoleFromArnPolicy3337E7E7"
+          }
+        ],
+        "/GenAIService/GenAIFargateLBService/LB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAIFargateLBServiceLB14F2323B"
+          }
+        ],
+        "/GenAIService/GenAIFargateLBService/LB/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAIFargateLBServiceLBSecurityGroup59E60F36"
+          }
+        ],
+        "/GenAIService/GenAIFargateLBService/LB/SecurityGroup/to GenAIServiceGenAIFargateLBServiceSecurityGroup2FC54525:80": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAIFargateLBServiceLBSecurityGrouptoGenAIServiceGenAIFargateLBServiceSecurityGroup2FC54525808A0E178E"
+          }
+        ],
+        "/GenAIService/GenAIFargateLBService/LB/PublicListener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAIFargateLBServiceLBPublicListener653A7587"
+          }
+        ],
+        "/GenAIService/GenAIFargateLBService/LB/PublicListener/ECSGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAIFargateLBServiceLBPublicListenerECSGroup0B45BDDA"
+          }
+        ],
+        "/GenAIService/GenAIFargateLBService/LoadBalancerDNS": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAIFargateLBServiceLoadBalancerDNS56A1ADD1"
+          }
+        ],
+        "/GenAIService/GenAIFargateLBService/ServiceURL": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAIFargateLBServiceServiceURL5DABCC07"
+          }
+        ],
+        "/GenAIService/GenAIFargateLBService/TaskDef/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAIFargateLBServiceTaskDef28376D56"
+          }
+        ],
+        "/GenAIService/GenAIFargateLBService/Service/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAIFargateLBService2618AC45"
+          }
+        ],
+        "/GenAIService/GenAIFargateLBService/Service/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAIFargateLBServiceSecurityGroupAAC63FEC"
+          }
+        ],
+        "/GenAIService/GenAIFargateLBService/Service/SecurityGroup/from GenAIServiceGenAIFargateLBServiceLBSecurityGroup3B09D2F2:80": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAIFargateLBServiceSecurityGroupfromGenAIServiceGenAIFargateLBServiceLBSecurityGroup3B09D2F28041119C90"
+          }
+        ],
+        "/GenAIService/GenAIFargateLBService/Service/TaskCount/Target/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAIFargateLBServiceTaskCountTargetA109205B"
+          }
+        ],
+        "/GenAIService/GenAIFargateLBService/Service/TaskCount/Target/CpuScaling/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenAIFargateLBServiceTaskCountTargetCpuScaling810B1269"
+          }
+        ],
+        "/GenAIService/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/GenAIService/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/GenAIService/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "GenAIService"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
